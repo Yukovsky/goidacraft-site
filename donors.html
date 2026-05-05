@@ -369,54 +369,38 @@
 <script src="assets/decor.js"></script>
 <script>
 const DONORS = [
-  { name: 'байтсвинг (byteswing)', amount: 2000, currency: '₽' },
-  { name: 'айс',         amount: 1700, currency: '₽' },
-  { name: 'юкари',       amount: 1500, currency: '₽' },
-  { name: 'фиджик',      amount: 567.8, currency: '₽' },
-  { name: 'артём',       amount: 567.8, currency: '₽' },
-  { name: 'puredistortion', amount: 400, currency: '₽' },
-  { name: 'мунс',        amount: 397, currency: '₽' },
-  { name: 'фуси',        amount: 300, currency: '₽' },
-  { name: 'teramoccer',  amount: 250, currency: '₽' },
-  { name: 'герман',      amount: 79.5, currency: '₽' },
-  { name: 'кит сметанович', amount: 2, currency: '€' },
+  { name: 'byteswing', amount: 2000 },
+  { name: 'ice3322', amount: 1700 },
+  { name: 'PLYukari_Akiyama', amount: 1500 },
+  { name: 'FiJiK_', amount: 567.8 },
+  { name: 'dzetsu', amount: 567.8 },
+  { name: 'puredistortion', amount: 400 },
+  { name: 'THE_MO0NS', amount: 397 },
+  { name: 'MrFUSY', amount: 300 },
+  { name: 'teramoccer', amount: 250 },
+  { name: 'YANASRALL228', amount: 175.4 },
+  { name: 'gergobro', amount: 79.5 },
 ];
 
-const sorted = [...DONORS].sort((a, b) => {
-  // Convert € to roughly ₽ for sort only (1 € ≈ 100 ₽ for ranking)
-  const ra = a.currency === '₽' ? a.amount : a.amount * 100;
-  const rb = b.currency === '₽' ? b.amount : b.amount * 100;
-  return rb - ra;
-});
+const sorted = [...DONORS].sort((a, b) => b.amount - a.amount);
 
 const container = document.getElementById('plaques');
 sorted.forEach((d, i) => {
   const el = document.createElement('div');
   el.className = 'plaque';
-  if (d.amount >= 1000 && d.currency === '₽') el.classList.add('top-tier');
-  // Slight random rotation
   const rot = ((i % 5) - 2) * 0.6;
   el.style.setProperty('--rot', rot + 'deg');
   el.innerHTML = `
     <div class="ord">№ ${String(i + 1).padStart(2, '0')}</div>
-    ${d.amount >= 1000 && d.currency === '₽' ? '<div class="crown">★</div>' : ''}
     <div class="name">${d.name}</div>
-    <div class="amount">
-      Поддержка
-      <strong>${d.amount.toLocaleString('ru-RU')} ${d.currency}</strong>
-    </div>
     <span class="pr-tl"></span><span class="pr-tr"></span>
   `;
   container.appendChild(el);
 });
 
-// Stats
-const totalRub = DONORS.filter(d=>d.currency==='₽').reduce((s,d)=>s+d.amount, 0);
-const totalEur = DONORS.filter(d=>d.currency==='€').reduce((s,d)=>s+d.amount, 0);
 document.getElementById('stat-count').textContent = DONORS.length;
-document.getElementById('stat-total').textContent =
-  totalRub.toLocaleString('ru-RU') + ' ₽' + (totalEur ? ' + ' + totalEur + ' €' : '');
-document.getElementById('stat-top').textContent = sorted[0].amount.toLocaleString('ru-RU') + ' ' + sorted[0].currency;
+document.getElementById('stat-total').textContent = '—';
+document.getElementById('stat-top').textContent = '—';
 </script>
 <script src="assets/tweaks.js"></script>
 </body>
