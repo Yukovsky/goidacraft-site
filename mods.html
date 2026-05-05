@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Гойдакрафт — Моды</title>
+<title>Гойдакрафт — Серверные моды</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
@@ -101,6 +101,57 @@
   margin-left: 6px;
 }
 
+/* Build variants */
+.build-variants {
+  background: var(--paper);
+  padding: 60px 32px;
+  border-bottom: 4px solid var(--wood-dark);
+}
+.build-variants-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.build-variants h2 {
+  text-align: center;
+  font-size: clamp(30px, 4vw, 44px);
+  margin: 0 0 10px;
+}
+.build-variants > .build-variants-inner > p {
+  text-align: center;
+  margin: 0 auto 28px;
+  max-width: 760px;
+  color: var(--ink-soft);
+}
+.build-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  gap: 20px;
+}
+.build-card {
+  background: linear-gradient(180deg, #fff5dd, #f2dfb9);
+  border: 2px solid var(--copper-dark);
+  padding: 22px 24px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.14);
+}
+.build-card h3 {
+  margin: 0 0 10px;
+  font-size: 30px;
+}
+.build-card h3 span {
+  display: block;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--copper-dark);
+  margin-bottom: 8px;
+}
+.build-card p {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
 /* Blueprint background area */
 .blueprint {
   background:
@@ -168,6 +219,25 @@
   font-size: 18px;
   max-width: 640px;
   margin: 0 auto;
+}
+.mods-search {
+  margin: 28px auto 0;
+  max-width: 560px;
+}
+.mods-search input {
+  width: 100%;
+  height: 46px;
+  border: 2px solid var(--ink-faded);
+  background: #fff9ec;
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 15px;
+  padding: 0 14px;
+}
+.mods-search input:focus {
+  outline: none;
+  border-color: var(--copper-dark);
+  box-shadow: 0 0 0 3px rgba(184,115,51,0.2);
 }
 
 /* Filter / category tabs */
@@ -364,6 +434,7 @@
 
 @media (max-width: 980px) {
   .topnav-links { gap: 0; flex-wrap: wrap; }
+  .build-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -387,12 +458,12 @@
 <section class="page-head">
   <div class="deco-gear gear-host gear-spin" data-teeth="14" data-r="80" data-color="#8a6a1f" data-highlight="#c89b3c" style="left: 5%; top: 30%;"></div>
   <div class="deco-gear gear-host gear-spin ccw" data-teeth="10" data-r="50" data-color="#8a6a1f" data-highlight="#c89b3c" style="right: 8%; top: 25%;"></div>
-  <h1>Чертёж модов</h1>
+  <h1>СЕРВЕРНЫЕ МОДЫ</h1>
   <p class="subtitle">Девяносто деталей одного механизма</p>
   <div class="stats">
     <span><strong id="stat-mods">90</strong>модов</span>
-    <span><strong>8</strong>категорий</span>
-    <span><strong>1.21.1</strong>NeoForge</span>
+    <span><strong id="stat-cats">11</strong>категорий</span>
+    <span><strong>1.21.1</strong>Minecraft</span>
   </div>
 </section>
 
@@ -416,11 +487,31 @@
   </div>
 </section>
 
+<section class="build-variants">
+  <div class="build-variants-inner">
+    <h2>Два варианта сборки</h2>
+    <p>Обе сборки рассчитаны на Minecraft 1.21.1. Выбирайте под свой стиль игры и мощность ПК.</p>
+    <div class="build-grid">
+      <article class="build-card">
+        <h3><span>Вариант 1</span>GOIDAbase</h3>
+        <p>Сборка только с самыми важными (обязательными) модами. Без неё вы просто не сможете зайти на сервер.</p>
+      </article>
+      <article class="build-card">
+        <h3><span>Вариант 2</span>GOIDAslon</h3>
+        <p>Самые важные моды + оптимизация Minecraft. На выходе более стабильный и визуально приятный Minecraft.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section class="blueprint">
   <div class="bp-header">
-    <span class="label">Карта механизмов · v21.1.228</span>
+    <span class="label">Карта модов · Minecraft 1.21.1 / NeoForge 21.1.228</span>
     <h2>Кликните на любую деталь</h2>
     <p>Каждый мод — это шестерёнка в общем механизме сервера. Категории соединены линиями: индустрия питается от библиотек, кулинария дополняет ферму, оптимизация держит всё это вместе.</p>
+    <div class="mods-search">
+      <input type="search" id="mods-search-input" placeholder="Поиск по названию мода...">
+    </div>
   </div>
 
   <div class="cat-tabs" id="cat-tabs">
@@ -457,7 +548,6 @@
       <div class="detail-panel-body" id="dp-body">Описание мода…</div>
       <div class="detail-meta">
         <span id="dp-num">№ 00</span>
-        <span id="dp-author">Автор: —</span>
       </div>
     </div>
   </div>
@@ -503,7 +593,7 @@ const RAW = [
 
   ['create-rails', "Create Big Cannons", "Артиллерийская ветка для Create: крупнокалиберные пушки, боеприпасы и баллистика."],
   ['create-rails', "Big Cannons Aeronautics Fix", "Патч совместимости между Big Cannons и Create: Aeronautics для корректной работы пушек на летающих конструкциях."],
-  ['create-rails', "Steam 'n' Rails", "Крупное расширение железных дорог Create: новые пути, локомотивные возможности, блоки и сигнальные элементы."],
+  ['create-rails', "Steam 'n' Rails (railways)", "Крупное расширение железных дорог Create: новые пути, локомотивные возможности, блоки и сигнальные элементы."],
   ['create-rails', "Create: Threaded Trains", "Улучшения производительности и обработки поездов и маршрутов в крупных железнодорожных сетях."],
   ['create-rails', "Vista Aeronautics Fix", "Исправления совместимости Vista и Create: Aeronautics для стабильной работы камер и визуальных систем на летающих контрапциях."],
 
@@ -607,6 +697,8 @@ const MODS = RAW.map((row, i) => ({
 
 const stm = document.getElementById('stat-mods');
 if (stm) stm.textContent = MODS.length;
+const stc = document.getElementById('stat-cats');
+if (stc) stc.textContent = CATS.length;
 
 const root = document.getElementById('bp-categories');
 CATS.forEach(c => {
@@ -652,16 +744,32 @@ document.getElementById('dp-close').addEventListener('click', () => {
 });
 
 // Category filter
+let activeCat = 'all';
 document.querySelectorAll('.cat-tab').forEach(t => {
   t.addEventListener('click', () => {
     document.querySelectorAll('.cat-tab').forEach(x => x.classList.remove('active'));
     t.classList.add('active');
-    const cat = t.dataset.cat;
-    document.querySelectorAll('.bp-cat').forEach(c => {
-      c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
-    });
+    activeCat = t.dataset.cat;
+    applyFilters();
   });
 });
+
+function applyFilters() {
+  const query = (document.getElementById('mods-search-input')?.value || '').trim().toLowerCase();
+  document.querySelectorAll('.bp-cat').forEach(c => {
+    const catVisible = activeCat === 'all' || c.dataset.cat === activeCat;
+    let hasVisibleMods = false;
+    c.querySelectorAll('.mod-node').forEach(node => {
+      const text = node.textContent.toLowerCase();
+      const match = !query || text.includes(query);
+      node.style.display = match ? '' : 'none';
+      if (match) hasVisibleMods = true;
+    });
+    c.style.display = catVisible && hasVisibleMods ? '' : 'none';
+  });
+}
+
+document.getElementById('mods-search-input')?.addEventListener('input', applyFilters);
 
 // Mods page video
 document.getElementById('mods-play')?.addEventListener('click', () => {

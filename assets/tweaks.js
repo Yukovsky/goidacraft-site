@@ -2,13 +2,11 @@
    Adds floating cog button bottom-right; opens panel with:
    - gear animation speed
    - parallax on/off
-   - ambient sound on/off (synthesized tick + steam)
-*/
+ */
 (function () {
   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
     "gearSpeed": 1,
-    "parallax": true,
-    "sound": false
+    "parallax": true
   }/*EDITMODE-END*/;
 
   // Read from localStorage (so user prefs persist across pages)
@@ -25,7 +23,6 @@
   function apply() {
     if (window.setGearSpeed) setGearSpeed(state.gearSpeed);
     if (window.setParallax) setParallax(state.parallax);
-    if (window.setSound) setSound(state.sound);
   }
 
   // Build UI
@@ -56,11 +53,6 @@
           <label class="gt-label" for="gt-parallax">Параллакс при скролле</label>
           <input type="checkbox" id="gt-parallax" ${state.parallax ? 'checked' : ''}>
         </div>
-        <div class="gt-row gt-toggle">
-          <label class="gt-label" for="gt-sound">Звук тиканья и пара</label>
-          <input type="checkbox" id="gt-sound" ${state.sound ? 'checked' : ''}>
-        </div>
-        <p class="gt-hint">Звук синтезируется браузером. Включится после клика.</p>
       </div>
     </div>
   `;
@@ -127,10 +119,6 @@
   document.getElementById('gt-parallax').addEventListener('change', e => {
     state.parallax = e.target.checked; persist(); apply();
   });
-  document.getElementById('gt-sound').addEventListener('change', e => {
-    state.sound = e.target.checked; persist(); apply();
-  });
-
   // Wait for decor.js to be ready
   document.addEventListener('DOMContentLoaded', apply);
   if (document.readyState !== 'loading') setTimeout(apply, 50);

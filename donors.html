@@ -180,22 +180,14 @@
   border-bottom: 1px solid rgba(58, 28, 8, 0.5);
   padding-bottom: 8px;
 }
-.plaque .amount {
+.plaque .role {
   font-family: var(--f-mono);
-  font-size: 13px;
+  font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #4a2810;
   text-align: center;
   margin: 0;
-}
-.plaque .amount strong {
-  display: block;
-  font-size: 22px;
-  letter-spacing: 0;
-  margin-top: 4px;
-  color: #1a0e05;
-  font-weight: 700;
 }
 .plaque .ord {
   position: absolute;
@@ -220,34 +212,6 @@
   position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
   font-size: 24px;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-}
-
-/* Total counter */
-.total-bar {
-  margin-top: 60px;
-  background: linear-gradient(180deg, #1a0e05, #0a0703);
-  border: 3px solid var(--brass-dark);
-  padding: 24px 32px;
-  display: flex; justify-content: space-around; flex-wrap: wrap; gap: 24px;
-  font-family: var(--f-mono);
-  color: var(--paper-2);
-  text-align: center;
-  position: relative;
-}
-.total-bar::before, .total-bar::after {
-  content: ''; position: absolute; width: 14px; height: 14px;
-  background: radial-gradient(circle at 35% 30%, var(--brass-light), var(--brass-dark)); border-radius: 50%;
-  box-shadow: inset 0 -1px 2px rgba(0,0,0,0.6);
-}
-.total-bar::before { top: 10px; left: 10px; }
-.total-bar::after { top: 10px; right: 10px; }
-.total-bar .stat strong {
-  display: block; font-family: var(--f-display);
-  font-size: 32px; color: var(--brass-light); margin-top: 6px;
-  font-weight: 700;
-}
-.total-bar .stat .lbl {
-  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--brass);
 }
 
 /* Thank you message at the bottom */
@@ -336,21 +300,6 @@
 
     <div class="plaques" id="plaques"></div>
 
-    <div class="total-bar">
-      <div class="stat">
-        <span class="lbl">Покровителей</span>
-        <strong id="stat-count">0</strong>
-      </div>
-      <div class="stat">
-        <span class="lbl">Совокупная поддержка</span>
-        <strong id="stat-total">0 ₽</strong>
-      </div>
-      <div class="stat">
-        <span class="lbl">Топ-вклад</span>
-        <strong id="stat-top">0 ₽</strong>
-      </div>
-    </div>
-
     <div class="thank-you">
       <div class="quote-mark">«</div>
       <h3>Каждый дирижабль в небе летит на вашем угле.</h3>
@@ -369,54 +318,38 @@
 <script src="assets/decor.js"></script>
 <script>
 const DONORS = [
-  { name: 'байтсвинг (byteswing)', amount: 2000, currency: '₽' },
-  { name: 'айс',         amount: 1700, currency: '₽' },
-  { name: 'юкари',       amount: 1500, currency: '₽' },
-  { name: 'фиджик',      amount: 567.8, currency: '₽' },
-  { name: 'артём',       amount: 567.8, currency: '₽' },
-  { name: 'puredistortion', amount: 400, currency: '₽' },
-  { name: 'мунс',        amount: 397, currency: '₽' },
-  { name: 'фуси',        amount: 300, currency: '₽' },
-  { name: 'teramoccer',  amount: 250, currency: '₽' },
-  { name: 'герман',      amount: 79.5, currency: '₽' },
-  { name: 'кит сметанович', amount: 2, currency: '€' },
+  { name: 'byteswing', amount: 2000 },
+  { name: 'ice3322', amount: 1700 },
+  { name: 'PLYukari_Akiyama', amount: 1500 },
+  { name: 'FiJiK_', amount: 567.8 },
+  { name: 'dzetsu', amount: 567.8 },
+  { name: 'puredistortion', amount: 400 },
+  { name: 'THE_MO0NS', amount: 397 },
+  { name: 'MrFUSY', amount: 300 },
+  { name: 'teramoccer', amount: 250 },
+  { name: 'YANASRALL228', amount: 175.4 },
+  { name: 'gergobro', amount: 79.5 },
 ];
 
-const sorted = [...DONORS].sort((a, b) => {
-  // Convert € to roughly ₽ for sort only (1 € ≈ 100 ₽ for ranking)
-  const ra = a.currency === '₽' ? a.amount : a.amount * 100;
-  const rb = b.currency === '₽' ? b.amount : b.amount * 100;
-  return rb - ra;
-});
+const sorted = [...DONORS].sort((a, b) => b.amount - a.amount);
 
 const container = document.getElementById('plaques');
 sorted.forEach((d, i) => {
   const el = document.createElement('div');
   el.className = 'plaque';
-  if (d.amount >= 1000 && d.currency === '₽') el.classList.add('top-tier');
+  if (d.amount >= 1000) el.classList.add('top-tier');
   // Slight random rotation
   const rot = ((i % 5) - 2) * 0.6;
   el.style.setProperty('--rot', rot + 'deg');
   el.innerHTML = `
     <div class="ord">№ ${String(i + 1).padStart(2, '0')}</div>
-    ${d.amount >= 1000 && d.currency === '₽' ? '<div class="crown">★</div>' : ''}
+    ${d.amount >= 1000 ? '<div class="crown">★</div>' : ''}
     <div class="name">${d.name}</div>
-    <div class="amount">
-      Поддержка
-      <strong>${d.amount.toLocaleString('ru-RU')} ${d.currency}</strong>
-    </div>
+    <div class="role">поддержал проект</div>
     <span class="pr-tl"></span><span class="pr-tr"></span>
   `;
   container.appendChild(el);
 });
-
-// Stats
-const totalRub = DONORS.filter(d=>d.currency==='₽').reduce((s,d)=>s+d.amount, 0);
-const totalEur = DONORS.filter(d=>d.currency==='€').reduce((s,d)=>s+d.amount, 0);
-document.getElementById('stat-count').textContent = DONORS.length;
-document.getElementById('stat-total').textContent =
-  totalRub.toLocaleString('ru-RU') + ' ₽' + (totalEur ? ' + ' + totalEur + ' €' : '');
-document.getElementById('stat-top').textContent = sorted[0].amount.toLocaleString('ru-RU') + ' ' + sorted[0].currency;
 </script>
 <script src="assets/tweaks.js"></script>
 </body>
