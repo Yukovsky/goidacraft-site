@@ -6,6 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
+html {
+  scroll-behavior: smooth;
+}
 .page-head {
   background: linear-gradient(180deg, #2a1c0e 0%, #1a1108 100%);
   padding: 80px 32px 60px;
@@ -308,24 +311,36 @@
 </section>
 
 <script src="assets/decor.js"></script>
+<script src="assets/donors-data.js"></script>
 <script>
-const DONORS = [
-  { name: 'byteswing', amount: 2000 },
-  { name: 'ice3322', amount: 1700 },
-  { name: 'PLYukari_Akiyama', amount: 1500 },
-  { name: 'FiJiK_', amount: 567.8 },
-  { name: 'dzetsu', amount: 567.8 },
-  { name: 'puredistortion', amount: 400 },
-  { name: 'THE_MO0NS', amount: 397 },
-  { name: 'MrFUSY', amount: 300 },
-  { name: 'teramoccer', amount: 250 },
-  { name: 'YANASRALL228', amount: 175.4 },
-  { name: 'gergobro', amount: 79.5 },
-];
+const donorsSource = (window.DONORS_DATA && Array.isArray(window.DONORS_DATA.entries))
+  ? window.DONORS_DATA.entries
+  : [];
 
-const sorted = [...DONORS].sort((a, b) => b.amount - a.amount);
+const normalized = donorsSource
+  .map((item) => ({
+    name: String(item.nickname || '').trim(),
+    amount: Number(item.amount)
+  }))
+  .filter((item) => item.name && Number.isFinite(item.amount) && item.amount > 0);
+
+const sorted = [...normalized].sort((a, b) => b.amount - a.amount);
 
 const container = document.getElementById('plaques');
+container.innerHTML = '';
+
+if (!sorted.length) {
+  const empty = document.createElement('div');
+  empty.className = 'plaque';
+  empty.style.setProperty('--rot', '0deg');
+  empty.innerHTML = `
+    <div class="name">Список пока пуст</div>
+    <div class="role">Вы можете пожертвовать серверу, чтобы появиться тут! Свяжитесь с администрацией</div>
+    <span class="pr-tl"></span><span class="pr-tr"></span>
+  `;
+  container.appendChild(empty);
+}
+
 sorted.forEach((d, i) => {
   const el = document.createElement('div');
   el.className = 'plaque';
@@ -341,6 +356,20 @@ sorted.forEach((d, i) => {
     <span class="pr-tl"></span><span class="pr-tr"></span>
   `;
   container.appendChild(el);
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"], a[href*="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if (href && href.includes('#')) {
+      const target = document.querySelector(href.split('#')[1] ? '#' + href.split('#')[1] : href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  });
 });
 </script>
 </body>

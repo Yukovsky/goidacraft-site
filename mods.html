@@ -6,6 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
+html {
+  scroll-behavior: smooth;
+}
 .page-head {
   background:
     linear-gradient(180deg, #2a1c0e 0%, #1a1108 100%);
@@ -432,6 +435,35 @@
   padding-top: 14px; border-top: 1px dashed var(--ink-faded);
 }
 
+/* Download section */
+.download-section-mods {
+  background: linear-gradient(180deg, #2a1c0e, #1a1108);
+  padding: 70px 32px;
+  text-align: center;
+  border-top: 4px solid var(--wood-dark);
+  position: relative;
+}
+.download-section-mods h2 {
+  font-family: var(--f-display); font-size: 36px; color: var(--brass-light); margin: 0 0 14px;
+}
+.download-section-mods p {
+  color: var(--paper-2); font-family: var(--f-display); font-style: italic; font-size: 18px;
+  max-width: 600px; margin: 0 auto 40px;
+}
+.dl-btn-mods {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 18px 32px;
+  background: linear-gradient(180deg, var(--copper-light), var(--copper) 40%, var(--copper-dark));
+  border: 2px solid #3a1c08;
+  color: #fff5e0;
+  font-family: var(--f-mono);
+  font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600;
+  text-decoration: none; border-radius: 4px;
+  box-shadow: inset 0 -3px 4px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,200,140,0.4), 0 6px 12px rgba(0,0,0,0.5);
+  transition: transform 0.2s;
+}
+.dl-btn-mods:hover { transform: translateY(-3px); color: #fff5e0; }
+
 @media (max-width: 980px) {
   .topnav-links { gap: 0; flex-wrap: wrap; }
   .build-grid { grid-template-columns: 1fr; }
@@ -459,7 +491,7 @@
   <div class="deco-gear gear-host gear-spin" data-teeth="14" data-r="80" data-color="#8a6a1f" data-highlight="#c89b3c" style="left: 5%; top: 30%;"></div>
   <div class="deco-gear gear-host gear-spin ccw" data-teeth="10" data-r="50" data-color="#8a6a1f" data-highlight="#c89b3c" style="right: 8%; top: 25%;"></div>
   <h1>СЕРВЕРНЫЕ МОДЫ</h1>
-  <p class="subtitle">Девяносто деталей одного механизма</p>
+  <p class="subtitle">Как детали одного механизма</p>
   <div class="stats">
     <span><strong id="stat-mods">90</strong>модов</span>
     <span><strong id="stat-cats">11</strong>категорий</span>
@@ -487,7 +519,7 @@
   </div>
 </section>
 
-<section class="build-variants">
+<section class="build-variants" id="build-variants">
   <div class="build-variants-inner">
     <h2>Два варианта сборки</h2>
     <p>Обе сборки рассчитаны на Minecraft 1.21.1. Выбирайте под свой стиль игры и мощность ПК.</p>
@@ -500,6 +532,12 @@
         <h3><span>Вариант 2</span>GOIDAslon</h3>
         <p>Самые важные моды + оптимизация Minecraft. На выходе более стабильный и визуально приятный Minecraft.</p>
       </article>
+    </div>
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="https://drive.google.com/drive/u/1/folders/1YL2rmhQ25l3TBhtMInGarqKM6UomWXdy" target="_blank" rel="noopener" class="dl-btn-mods" aria-label="Скачать сборку модов">
+        <span class="gear-host gear-spin" data-teeth="10" data-r="11" data-color="#3a1c08" data-highlight="#7a4818"></span>
+        Скачать сборку
+      </a>
     </div>
   </div>
 </section>
@@ -772,6 +810,20 @@ document.getElementById('mods-play')?.addEventListener('click', () => {
   const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/);
   if (m) id = m[1];
   document.getElementById('mods-video-frame').innerHTML = `<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"], a[href*="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if (href && href.includes('#')) {
+      const target = document.querySelector(href.split('#')[1] ? '#' + href.split('#')[1] : href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  });
 });
 </script>
 </body>

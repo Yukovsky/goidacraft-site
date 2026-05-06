@@ -6,6 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
+html {
+  scroll-behavior: smooth;
+}
 .page-head {
   background: linear-gradient(180deg, #2a1c0e 0%, #1a1108 100%);
   padding: 80px 32px 60px;
@@ -36,7 +39,7 @@
   background: linear-gradient(180deg, #2a1c0e, #0a0703);
   border: 6px solid;
   border-image: linear-gradient(180deg, var(--brass-light), var(--brass), var(--brass-dark)) 1;
-  padding: 30px 32px 32px;
+  padding: 30px 32px 20px;
   position: relative;
   box-shadow: 0 12px 32px rgba(0,0,0,0.4);
 }
@@ -54,11 +57,18 @@
   content: ''; width: 8px; height: 8px; background: #6ad96e; border-radius: 50%;
   box-shadow: 0 0 10px #6ad96e; animation: blink 1.4s infinite;
 }
+.ip-card.status-offline .lbl::before {
+  background: #d95e5e; box-shadow: 0 0 10px #d95e5e; animation: none; opacity: 0.8;
+}
+.ip-card.status-loading .lbl::before {
+  background: #e8c878; box-shadow: 0 0 10px #e8c878; animation: pulse 1s infinite;
+}
 @keyframes blink { 50% { opacity: 0.3; } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 .ip-card .ip-string {
-  font-family: var(--f-mono); font-size: clamp(22px, 3vw, 30px); color: var(--brass-light);
+  font-family: var(--f-title); font-size: clamp(16px, 2vw, 22px); color: var(--brass-light);
   background: #0a0703; padding: 16px 20px; border: 2px solid var(--copper-dark);
-  text-align: center; letter-spacing: 0.05em; margin-bottom: 18px;
+  text-align: center; letter-spacing: 0.05em; margin-bottom: 10px;
   user-select: all;
 }
 .ip-card .copy-btn {
@@ -73,6 +83,7 @@
 }
 .ip-card .copy-btn:hover { transform: translateY(-2px); }
 .ip-card .copy-btn.copied { background: linear-gradient(180deg, #b8d878, #6a8a1f); color: #fff8e0; }
+.ip-card .copy-btn .btn-text { min-height: 1em; }
 .ip-card .meta {
   margin-top: 20px;
   display: grid; grid-template-columns: auto 1fr; gap: 10px 18px;
@@ -134,6 +145,10 @@
   font-size: 20px; color: var(--copper-dark);
 }
 
+#server-status {
+  font-family: var(--f-title);
+}
+
 /* Steps */
 .steps-section {
   background: var(--paper-2);
@@ -152,7 +167,7 @@
 }
 .steps {
   display: grid; gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
 }
 .step {
   background: var(--paper);
@@ -273,17 +288,17 @@
   <div class="ip-card">
     <span class="rivet"></span><span class="rivet"></span>
     <span class="rivet"></span><span class="rivet"></span>
-    <div class="lbl">Адрес сервера · Активен</div>
+    <div class="lbl"><span id="server-status" data-status="loading">Проверка статуса...</span></div>
     <div class="ip-string" id="ip-str">goidacraft.aboba.host</div>
     <button class="copy-btn" id="connect-copy">
       <span class="gear-host gear-spin" data-teeth="10" data-r="9" data-color="#3a2810" data-highlight="#5a3a18"></span>
-      <span>Скопировать адрес</span>
+      <span class="btn-text">Скопировать адрес</span>
     </button>
     <dl class="meta">
       <dt>Платформа</dt><dd>NeoForge (билд 21.1.228)</dd>
       <dt>Версия игры</dt><dd>Minecraft 1.21.1</dd>
-      <dt>Режим</dt><dd>Survival · Role-Play</dd>
-      <dt>Голос. чат</dt><dd>Simple Voice Chat</dd>
+      <dt>Лицензия</dt><dd id="server-license" style="min-height: 1.2em;">—</dd>
+      <dt>Игроки</dt><dd id="server-players" style="min-height: 1.2em;">—</dd>
     </dl>
   </div>
 
@@ -321,7 +336,7 @@
       <div class="step">
         <div class="num">01</div>
         <h3>Установите NeoForge</h3>
-        <p>Для игры нужна версия Minecraft <code>1.21.1</code>. Лоадер — NeoForge билд <code>21.1.228</code>. Установите его через официальный инсталлятор.</p>
+        <p>Для игры нужна версия Minecraft <code>1.21.1</code>. Лоадер — NeoForge билд <code>21.1.228</code>. Установите можно через официальный инсталлятор или же другими способами.</p>
       </div>
       <div class="step">
         <div class="num">02</div>
@@ -336,7 +351,7 @@
       <div class="step">
         <div class="num">04</div>
         <h3>Подключитесь к серверу</h3>
-        <p>В меню «Сетевая игра» добавьте сервер с адресом <code>goidacraft.aboba.host</code>. Стандартный порт. И добро пожаловать.</p>
+        <p>В меню «Сетевая игра» добавьте сервер с адресом <code>goidacraft.aboba.host</code>. Приятной игры!</p>
       </div>
     </div>
   </div>
@@ -356,23 +371,58 @@
       <p>Для Modrinth, Prism и похожих лаунчеров. Содержит те же папки, но устанавливается автоматически без ручного копирования файлов.</p>
     </article>
   </div>
-  <a href="#" class="dl-btn" aria-label="Скачать сборку модов в zip">
+  <a href="mods.html#build-variants" class="dl-btn" aria-label="Скачать сборку модов">
     <span class="gear-host gear-spin" data-teeth="10" data-r="11" data-color="#3a1c08" data-highlight="#7a4818"></span>
-    Скачать сборку (.zip)
+    Скачать моды
   </a>
 </section>
 
 
 <script src="assets/decor.js"></script>
+<script src="assets/server-status.js"></script>
 <script>
+// Server status indicator styling
+document.addEventListener('DOMContentLoaded', () => {
+  const statusEl = document.getElementById('server-status');
+  if (statusEl) {
+    const updateIndicatorClass = () => {
+      const ipCard = document.querySelector('.ip-card');
+      const status = statusEl.getAttribute('data-status');
+      if (ipCard) {
+        ipCard.classList.remove('status-online', 'status-offline', 'status-loading');
+        ipCard.classList.add(`status-${status}`);
+      }
+    };
+    
+    // Observe status changes
+    const observer = new MutationObserver(updateIndicatorClass);
+    observer.observe(statusEl, { attributes: true, attributeFilter: ['data-status'] });
+    updateIndicatorClass();
+  }
+});
+
 document.getElementById('connect-copy').addEventListener('click', e => {
   const btn = e.currentTarget;
   navigator.clipboard.writeText('goidacraft.aboba.host').catch(()=>{});
   btn.classList.add('copied');
-  const lbl = btn.querySelector('span:last-child');
+  const lbl = btn.querySelector('.btn-text');
   const old = lbl.textContent;
   lbl.textContent = '✓ Скопировано';
   setTimeout(() => { btn.classList.remove('copied'); lbl.textContent = old; }, 2000);
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"], a[href*="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if (href && href.includes('#')) {
+      const target = document.querySelector(href.split('#')[1] ? '#' + href.split('#')[1] : href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  });
 });
 </script>
 </body>

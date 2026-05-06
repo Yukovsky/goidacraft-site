@@ -6,23 +6,91 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
+html {
+  scroll-behavior: smooth;
+}
+html.loading {
+  overflow: hidden;
+}
 /* Loader */
 #loader {
   position: fixed; inset: 0; z-index: 9999;
   background: radial-gradient(ellipse at center, #25384f, #101822);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
+  perspective: 900px;
+  overflow: hidden;
   transition: opacity 0.8s, visibility 0.8s;
+}
+#loader::before,
+#loader::after {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+}
+#loader::before {
+  background:
+    radial-gradient(circle at calc(50% + var(--lx, 0px)) calc(42% + var(--ly, 0px)), rgba(179, 220, 255, 0.24), transparent 34%),
+    radial-gradient(circle at 50% 58%, rgba(255, 255, 255, 0.08), transparent 38%);
+  filter: blur(18px);
+  animation: loader-breathe 4.8s ease-in-out infinite;
+}
+#loader::after {
+  background:
+    linear-gradient(transparent 0 64%, rgba(171, 194, 214, 0.13) 64% 66%, transparent 66% 100%),
+    linear-gradient(90deg, transparent 0 18%, rgba(255, 255, 255, 0.05) 18% 19%, transparent 19% 34%, rgba(255, 255, 255, 0.05) 34% 35%, transparent 35% 50%, rgba(255, 255, 255, 0.05) 50% 51%, transparent 51% 66%, rgba(255, 255, 255, 0.05) 66% 67%, transparent 67% 82%, rgba(255, 255, 255, 0.05) 82% 83%, transparent 83% 100%);
+  opacity: 0.18;
+  transform: translateZ(-1px);
+  animation: loader-drift 12s linear infinite;
 }
 #loader.gone { opacity: 0; visibility: hidden; pointer-events: none; }
 .loader-train-wrap {
   position: relative;
   width: min(520px, 82vw);
-  display: flex; justify-content: center;
+  display: flex;
+  justify-content: center;
+  transform-style: preserve-3d;
+  transform: rotateX(6deg) rotateY(calc(var(--mx, 0px) * 0.04));
+  transition: transform 0.18s ease-out;
 }
+.loader-track {
+  position: absolute;
+  left: 4%; right: 4%; bottom: 10px;
+  height: 16px;
+  background: linear-gradient(90deg, transparent, rgba(118, 156, 191, 0.65), transparent);
+  filter: blur(1px);
+  opacity: 0.6;
+}
+.loader-track::before,
+.loader-track::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(219, 239, 255, 0.75), transparent);
+}
+.loader-track::before { top: 4px; }
+.loader-track::after { bottom: 3px; opacity: 0.55; }
 .loader-train {
   width: 100%;
   image-rendering: pixelated;
-  filter: drop-shadow(0 14px 22px rgba(0,0,0,0.55));
+  filter: drop-shadow(0 14px 22px rgba(0,0,0,0.55)) drop-shadow(0 0 18px rgba(138, 184, 223, 0.18));
+  animation: train-hover 2.8s ease-in-out infinite;
+  transform-origin: 50% 80%;
+}
+.loader-train-wrap::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  width: min(420px, 74vw);
+  height: 34px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(123, 174, 212, 0.34), transparent 68%);
+  filter: blur(10px);
+  opacity: 0.8;
+  pointer-events: none;
+  animation: train-glow 2.8s ease-in-out infinite;
 }
 .steam-stack {
   position: absolute;
@@ -43,15 +111,49 @@
 .steam-stack span:nth-child(1) { left: 18px; bottom: 120px; animation-delay: 0s; }
 .steam-stack span:nth-child(2) { left: 4px; bottom: 180px; width: 16px; height: 16px; animation-delay: 0.35s; }
 .steam-stack span:nth-child(3) { left: 30px; bottom: 200px; width: 16px; height: 16px; animation-delay: 0.7s; }
+.steam-stack::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 88px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(220, 234, 244, 0.85), rgba(220, 234, 244, 0.08) 60%, transparent 70%);
+  filter: blur(2px);
+  animation: puff-core 1.8s ease-in-out infinite;
+}
+@keyframes train-hover {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.01); }
+}
+@keyframes train-glow {
+  0%, 100% { opacity: 0.68; transform: translateX(-50%) scale(0.98); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.04); }
+}
 @keyframes block-steam {
   0% { transform: translate(0, 0); opacity: 0.1; }
   25% { opacity: 0.85; }
   100% { transform: translate(10px, -92px); opacity: 0; }
 }
+@keyframes puff-core {
+  0%, 100% { transform: translateX(-50%) scale(0.88); opacity: 0.55; }
+  50% { transform: translateX(-50%) scale(1.08); opacity: 0.92; }
+}
+@keyframes loader-breathe {
+  0%, 100% { opacity: 0.86; }
+  50% { opacity: 1; }
+}
+@keyframes loader-drift {
+  from { transform: translateX(-2%) translateZ(-1px); }
+  to { transform: translateX(2%) translateZ(-1px); }
+}
 .loader-text {
   margin-top: 18px; font-family: var(--f-body); font-weight: 700;
   font-size: 13px; letter-spacing: 0.28em;
   color: #dde8f3; text-transform: uppercase;
+  text-shadow: 0 0 14px rgba(140, 186, 225, 0.45);
 }
 .loader-progress {
   width: min(360px, 70vw); height: 8px; margin-top: 14px;
@@ -63,6 +165,18 @@
   content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0%;
   background: linear-gradient(90deg, #94b6d3, #e7f3ff);
   animation: load 2.5s ease-out forwards;
+}
+.loader-progress::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: translateX(-110%);
+  animation: progress-sheen 1.6s ease-in-out infinite;
+}
+@keyframes progress-sheen {
+  0% { transform: translateX(-110%); }
+  100% { transform: translateX(110%); }
 }
 @keyframes load { to { width: 100%; } }
 
@@ -131,6 +245,10 @@
   border-color: #9ac0df;
   background: linear-gradient(180deg, rgba(28,57,82,0.95), rgba(20,38,57,0.95));
   box-shadow: inset 0 0 0 1px rgba(201,225,245,0.24), 0 5px 12px rgba(0,0,0,0.38);
+}
+#hero-copy {
+  min-width: 280px;
+  white-space: nowrap;
 }
 .hero-spacer {
   display: none;
@@ -320,6 +438,7 @@
 
 <div id="loader">
   <div class="loader-train-wrap">
+    <div class="loader-track" aria-hidden="true"></div>
     <img class="loader-train" src="uploads/поезд_итог.png" alt="">
     <div class="steam-stack" aria-hidden="true">
       <span></span><span></span><span></span>
@@ -361,10 +480,12 @@
   <div class="trailer-shell">
     <p class="trailer-title">▸ Трейлер сервера ◂</p>
     <div class="trailer-frame" id="trailer-frame">
-      <a class="trailer-link" href="https://www.youtube.com/watch?v=3MEuBEMHh8Q" target="_blank" rel="noopener">
-        <div class="play" aria-hidden="true"></div>
-        <span>Смотреть трейлер на YouTube</span>
-      </a>
+            <iframe src="https://www.youtube.com/embed/3MEuBEMHh8Q"
+              title="Трейлер сервера — Гойдакрафт"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy"></iframe>
     </div>
   </div>
 </section>
@@ -409,7 +530,7 @@
     <a class="ql-card" href="mods.html">
       <div class="ql-icon"><span class="cog cog-large cog-spin" style="width:44px;height:44px"></span></div>
       <h3>Список модов</h3>
-      <p>~90 модов · Create · Let's Do · Farmer's Delight</p>
+      <p>Create · Let's Do · Farmer's Delight</p>
     </a>
     <a class="ql-card" href="connect.html">
       <div class="ql-icon"><span class="cog cog-small cog-spin" style="width:44px;height:44px"></span></div>
@@ -427,8 +548,35 @@
 <script src="assets/decor.js"></script>
 <script>
 window.addEventListener('load', () => {
-  setTimeout(() => document.getElementById('loader').classList.add('gone'), 2200);
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('gone');
+    document.documentElement.classList.remove('loading');
+  }, 2200);
 });
+
+// Add loading class immediately on page start
+document.documentElement.classList.add('loading');
+
+const loader = document.getElementById('loader');
+if (loader) {
+  const updateLoaderTilt = (event) => {
+    const bounds = loader.getBoundingClientRect();
+    const offsetX = event.clientX - bounds.left - bounds.width / 2;
+    const offsetY = event.clientY - bounds.top - bounds.height / 2;
+    loader.style.setProperty('--mx', `${offsetX}px`);
+    loader.style.setProperty('--my', `${offsetY}px`);
+    loader.style.setProperty('--lx', `${offsetX * 0.08}px`);
+    loader.style.setProperty('--ly', `${offsetY * 0.08}px`);
+  };
+
+  loader.addEventListener('pointermove', updateLoaderTilt);
+  loader.addEventListener('pointerleave', () => {
+    loader.style.setProperty('--mx', '0px');
+    loader.style.setProperty('--my', '0px');
+    loader.style.setProperty('--lx', '0px');
+    loader.style.setProperty('--ly', '0px');
+  });
+}
 
 function attachCopy(btnId) {
   const btn = document.getElementById(btnId);
@@ -441,6 +589,20 @@ function attachCopy(btnId) {
   });
 }
 attachCopy('hero-copy');
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"], a[href*="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if (href && href.includes('#')) {
+      const target = document.querySelector(href.split('#')[1] ? '#' + href.split('#')[1] : href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  });
+});
 </script>
 </body>
 </html>

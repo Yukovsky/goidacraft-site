@@ -1,0 +1,14 @@
+{
+  "name": "goidacraft-server-status",
+  "version": "1.0.0",
+  "description": "Background Polling + Shared Cache for server status",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "PORT=3000 node server.js"
+  },
+  "keywords": ["cache", "polling", "api", "server-status"],
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
