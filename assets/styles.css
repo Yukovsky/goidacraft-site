@@ -63,7 +63,7 @@ html, body, button, a, .btn, .copy-btn, [role="button"] {
   cursor: url('cursor/default.png') 0 0, auto;
 }
 a, button, .btn, .copy-btn, [role="button"], .mod-node, .cat-tab,
-.community-link, .ql-card, .topnav-link, .play, .gt-fab, .gt-close,
+.community-link, .ql-card, .topnav-link, .play,
 .close-btn, .dl-btn, label[for], input[type=checkbox], input[type=range],
 .plaque {
   cursor: url('cursor/pointing_hand.png') 0 0, pointer !important;
