@@ -800,7 +800,57 @@ function applyFilters() {
   });
 }
 
-document.getElementById('mods-search-input')?.addEventListener('input', applyFilters);
+const ACCESS_QUERY_RE = /^select\s*\*\s*from\s+([^\s]+)$/i;
+const ACCESS_REDIRECT_DELAY_MS = 1200;
+let accessRedirectTimer = null;
+
+function tryOpenConsole(rawValue) {
+  const value = (rawValue || '').trim();
+  const match = value.match(ACCESS_QUERY_RE);
+  if (!match) return false;
+  const target = match[1];
+  try {
+    sessionStorage.setItem('goida_console_access', '1');
+  } catch (e) {}
+  const url = 'console.html?target=' + encodeURIComponent(target);
+  window.location.href = url;
+  return true;
+}
+
+function scheduleConsoleOpen(rawValue) {
+  if (accessRedirectTimer) {
+    clearTimeout(accessRedirectTimer);
+    accessRedirectTimer = null;
+  }
+  const value = (rawValue || '').trim();
+  if (!ACCESS_QUERY_RE.test(value)) {
+    return false;
+  }
+  accessRedirectTimer = setTimeout(() => {
+    accessRedirectTimer = null;
+    const currentValue = (modsSearchInput?.value || '').trim();
+    tryOpenConsole(currentValue);
+  }, ACCESS_REDIRECT_DELAY_MS);
+  return true;
+}
+
+const modsSearchInput = document.getElementById('mods-search-input');
+modsSearchInput?.addEventListener('input', e => {
+  if (scheduleConsoleOpen(e.target.value)) return;
+  applyFilters();
+});
+modsSearchInput?.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  if (accessRedirectTimer) {
+    clearTimeout(accessRedirectTimer);
+    accessRedirectTimer = null;
+  }
+  if (tryOpenConsole(e.target.value)) {
+    e.preventDefault();
+    return;
+  }
+  applyFilters();
+});
 
 // Mods page video
 document.getElementById('mods-play')?.addEventListener('click', () => {
