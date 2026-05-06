@@ -242,7 +242,13 @@
   font-size: 21px; color: var(--ink-soft); line-height: 1.5;
   border-left: 3px solid var(--copper); padding-left: 20px;
 }
-.about-body p { margin: 0 0 18px; font-size: 16px; }
+.about-body p, .about-full p { margin: 0 0 18px; font-size: 16px; }
+.about-full {
+  grid-column: 1 / -1;
+  max-width: 1100px;
+  margin: 18px auto 0;
+  padding-top: 4px;
+}
 .about-body p strong { color: var(--copper-dark); }
 
 .principles {
@@ -370,6 +376,8 @@
     </div>
     <div class="about-body">
       <p class="about-lead">Гойдакрафт — частный role-play сервер для тех, кто играет тихо, не спеша, и любит когда механизмы шипят, а в небе летают дирижабли.</p>
+    </div>
+    <div class="about-full">
       <p>Цель проекта — обеспечить игрокам возможность <strong>приятного времяпрепровождения</strong> через создание доброжелательного комьюнити и предоставление свободы действий, не противоречащих базовым правилам сервера и элементарным нормам морали.</p>
       <p>Мы строим вместе: фермы из <em>Farmer's Delight</em>, железные дороги <em>Steam 'n' Rails</em>, виноградники <em>Let's Do Vinery</em>, тяжёлые заводы <em>The Factory Must Grow</em>, дирижабли через <em>Create: Aeronautics</em>. Свобода ограничена только взаимоуважением.</p>
     </div>
