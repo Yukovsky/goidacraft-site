@@ -332,7 +332,7 @@ html {
       <div id="console-output" class="console-body" aria-live="polite"></div>
 
       <form id="console-form" class="console-input-wrap" autocomplete="off">
-        <input id="console-input" name="command" type="text" placeholder="Введите команду... например: op PlayerName">
+        <input id="console-input" name="command" type="text" placeholder="Введите команду...">
         <button class="send-btn" type="submit">Отправить</button>
       </form>
     </section>
@@ -447,12 +447,69 @@ function commandResponse(commandRaw) {
   const command = commandRaw.trim();
   if (!command) return;
   pushLine('> ' + command, 'cmd');
+
+  if (/^hack$/i.test(command)) {
+    pushLine('Консоль была взломана', 'error');
+    let hackCount = 0;
+    const hackMessages = [
+      'critical: access token compromised',
+      'critical: kernel override detected',
+      'critical: security layer failed',
+      'critical: remote control intercepted',
+      'critical: unauthorized write access',
+      'critical: log integrity breached',
+      'critical: admin channel exposed',
+      'critical: sandbox escape in progress',
+    ];
+    const hackTimer = setInterval(() => {
+      const message = hackMessages[hackCount % hackMessages.length] + ` #${String(hackCount + 1).padStart(3, '0')}`;
+      pushLine(message, 'error');
+      hackCount += 1;
+      if (hackCount >= 100) {
+        clearInterval(hackTimer);
+        setTimeout(() => {
+          try {
+            window.close();
+          } catch (e) {}
+          window.location.href = 'index.html';
+        }, 180);
+      }
+    }, 15);
+    return;
+  }
+
   const opMatch = command.match(/^op\s+([\wа-яА-ЯёЁ.-]+)$/i);
   if (opMatch) {
     const player = opMatch[1];
     pushLine(`Игрок ${player} назначен оператором`, 'ok');
     return;
   }
+
+  const gameModeMatch = command.match(/^gamemode\s+([\wа-яА-ЯёЁ.-]+)\s+(creative|spectator|survival)$/i);
+  if (gameModeMatch) {
+    const target = gameModeMatch[1];
+    const mode = gameModeMatch[2].toLowerCase();
+    const modeLabels = {
+      creative: 'Творческий',
+      spectator: 'Наблюдателя',
+      survival: 'Выживание',
+    };
+    pushLine(`Игровой режим ${target} изменён на ${modeLabels[mode]}`, 'ok');
+    return;
+  }
+
+  const banMatch = command.match(/^ban\s+([\wа-яА-ЯёЁ.-]+)$/i);
+  if (banMatch) {
+    pushLine(`Игрок ${banMatch[1]} заблокирован`, 'error');
+    return;
+  }
+
+  const giveMatch = command.match(/^give\s+(\S+)\s+(\S+)$/i);
+  if (giveMatch) {
+    pushLine(`Выдано ${giveMatch[1]} ${giveMatch[2]}`, 'ok');
+    return;
+  }
+
   pushLine('Неверная команда', 'error');
 }
 
