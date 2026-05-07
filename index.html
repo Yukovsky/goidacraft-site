@@ -343,7 +343,10 @@ html.loading {
 .about { background: var(--paper); padding: 100px 32px 80px; position: relative; overflow: hidden; }
 .about-grid {
   max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1.3fr; gap: 60px; align-items: start;
+  display: grid;
+  grid-template-columns: minmax(460px, 1.15fr) minmax(280px, 0.85fr);
+  gap: 36px;
+  align-items: start;
 }
 .about-eyebrow {
   font-family: var(--f-body); font-weight: 700;
@@ -352,18 +355,29 @@ html.loading {
 }
 .about h2 {
   font-family: var(--f-display);
-  font-size: 45px;
-  line-height: 1.05;
+  font-size: clamp(24px, 4.6vw, 38px);
+  line-height: 1.12;
   margin: 0 0 20px;
 }
-.about h2 .nowrap { white-space: nowrap; }
+.about h2 .line { display: block; }
+.about h2 .line + .line { margin-top: 0.16em; }
+.about h2 .nowrap { white-space: normal; }
 .about h2 em { color: var(--copper-dark); font-style: italic; }
 .about-lead {
   font-family: var(--f-display); font-style: italic;
-  font-size: 21px; color: var(--ink-soft); line-height: 1.5;
+  font-size: clamp(16px, 3.8vw, 21px); color: var(--ink-soft); line-height: 1.5;
   border-left: 3px solid var(--copper); padding-left: 20px;
 }
-.about-body p, .about-full p { margin: 0 0 18px; font-size: 16px; }
+.about-body p, .about-full p { margin: 0 0 18px; font-size: clamp(14px, 2.6vw, 16px); }
+.about h2,
+.about-lead,
+.about-body p,
+.about-full p {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+}
 .about-full {
   grid-column: 1 / -1;
   max-width: 1100px;
@@ -371,6 +385,27 @@ html.loading {
   padding-top: 4px;
 }
 .about-body p strong { color: var(--copper-dark); }
+
+@media (min-width: 981px) {
+  .about-grid {
+    align-items: center;
+  }
+  .about-lead {
+    max-width: 36ch;
+    font-size: clamp(14px, 1.25vw, 17px);
+    line-height: 1.38;
+  }
+  .about-body p,
+  .about-full p {
+    font-size: clamp(13px, 1.05vw, 15px);
+    line-height: 1.48;
+  }
+}
+@media (min-width: 1200px) {
+  .about h2 .nowrap {
+    white-space: nowrap;
+  }
+}
 
 .principles {
   margin-top: 50px;
@@ -432,6 +467,65 @@ html.loading {
   .hero-text { align-items: center; text-align: center; padding-left: 0; }
   .hero-title-mark { width: min(420px, 90%); }
   .hero-spacer { display: none; }
+}
+@media (max-width: 760px) {
+  .about h2 {
+    font-size: clamp(26px, 8vw, 34px);
+    margin-bottom: 14px;
+  }
+  .about-lead {
+    font-size: clamp(15px, 4.3vw, 18px);
+    padding-left: 14px;
+  }
+  .about-body p,
+  .about-full p {
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .about-full {
+    margin-top: 6px;
+  }
+}
+@media (max-width: 560px) {
+  .about h2 {
+    font-size: clamp(24px, 8.2vw, 30px);
+    line-height: 1.12;
+  }
+  .about-lead {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+}
+@media (max-width: 480px) {
+  .about h2 {
+    font-size: clamp(21px, 7.8vw, 25px);
+    line-height: 1.16;
+    margin-bottom: 12px;
+  }
+  .about-lead {
+    font-size: 14px;
+    line-height: 1.42;
+    padding-left: 12px;
+    border-left-width: 2px;
+  }
+  .about-body p,
+  .about-full p {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+}
+@media (max-width: 390px) {
+  .about h2 {
+    font-size: 20px;
+    line-height: 1.18;
+  }
+  .about-lead,
+  .about-body p,
+  .about-full p {
+    font-size: 12.5px;
+  }
 }
 </style>
 </head>
@@ -496,7 +590,7 @@ html.loading {
   <div class="about-grid">
     <div>
       <div class="about-eyebrow">О проекте</div>
-      <h2>Не про <em>анархию</em>.<span style="display: block; margin-bottom: 8px;"></span><span class="nowrap">Про <em>взаимоуважение</em>.</span></h2>
+      <h2><span class="line">Не про <em>анархию</em>.</span><span class="line nowrap">Про <em>взаимоуважение</em>.</span></h2>
     </div>
     <div class="about-body">
       <p class="about-lead">Гойдакрафт — частный role-play сервер для тех, кто играет тихо, не спеша, и любит когда механизмы шипят, а в небе летают дирижабли.</p>

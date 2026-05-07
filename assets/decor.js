@@ -47,5 +47,57 @@
     document.documentElement.style.setProperty('--gear-speed', s);
   };
 
-  document.addEventListener('DOMContentLoaded', populateGears);
+  // ====== Mobile topnav ======
+  function closeTopnav(nav, button) {
+    nav.classList.remove('mobile-open');
+    button.setAttribute('aria-expanded', 'false');
+  }
+
+  function initTopnavMobile() {
+    document.querySelectorAll('.topnav').forEach((nav, idx) => {
+      const inner = nav.querySelector('.topnav-inner');
+      const links = nav.querySelector('.topnav-links');
+      if (!inner || !links) return;
+
+      const linksId = links.id || `topnav-links-${idx + 1}`;
+      links.id = linksId;
+
+      let button = nav.querySelector('.topnav-toggle');
+      if (!button) {
+        button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'topnav-toggle';
+        button.setAttribute('aria-label', 'Открыть меню навигации');
+        button.innerHTML = '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
+        inner.insertBefore(button, links);
+      }
+
+      button.setAttribute('aria-controls', linksId);
+      button.setAttribute('aria-expanded', 'false');
+
+      button.addEventListener('click', () => {
+        const willOpen = !nav.classList.contains('mobile-open');
+        nav.classList.toggle('mobile-open', willOpen);
+        button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      });
+
+      links.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', () => closeTopnav(nav, button));
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 980) closeTopnav(nav, button);
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!nav.classList.contains('mobile-open')) return;
+        if (!nav.contains(event.target)) closeTopnav(nav, button);
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    populateGears();
+    initTopnavMobile();
+  });
 })();

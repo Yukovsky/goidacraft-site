@@ -21,7 +21,7 @@ window.DONORS_DATA = {
     { nickname: 'MrFUSY', amount: 300, addedAt: '2026-05-01', note: '' },
     { nickname: 'teramoccer', amount: 250, addedAt: '2026-05-01', note: '' },
     { nickname: 'YANASRALL228', amount: 175.4, addedAt: '2026-05-01', note: '' },
-    { nickname: 'gergobro', amount: 79.5, addedAt: '2026-05-01', note: '' },
-    { nickname: 'Sir_Trigletus', amount: 106, addedAt: '2026-05-06', note: '' }
+    { nickname: 'Sir_Trigletus', amount: 106, addedAt: '2026-05-06', note: '' },
+    { nickname: 'gergobro', amount: 79.5, addedAt: '2026-05-01', note: '' }
   ]
 };
