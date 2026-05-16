@@ -235,6 +235,24 @@ h1, h2, h3 {
   align-items: center;
   gap: 10px;
 }
+.topnav-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 0 #000) drop-shadow(0 2px 3px rgba(0,0,0,0.45));
+}
+.topnav-logo { transform-origin: 50% 50%; }
+
+@keyframes favicon-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.topnav-brand:hover .topnav-logo,
+.topnav-brand.logo-spin .topnav-logo {
+  animation: favicon-spin 4.4s linear infinite;
+}
 .topnav-brand:hover { color: var(--brass-light); }
 .topnav-links {
   display: flex;
@@ -367,6 +385,10 @@ h1, h2, h3 {
     min-height: 42px;
     display: inline-flex;
     align-items: center;
+  }
+  .topnav-logo {
+    width: 30px;
+    height: 30px;
   }
   .topnav-toggle { display: inline-flex; }
   .topnav-links {

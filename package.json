@@ -1,13 +1,19 @@
 {
-  "name": "goidacraft-server-status",
+  "name": "goidacraft-site",
   "version": "1.0.0",
-  "description": "Background Polling + Shared Cache for server status",
+  "description": "GoidaCraft game server website",
   "main": "server.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node server.js",
-    "dev": "PORT=3000 node server.js"
+    "dev": "node server.js"
   },
-  "keywords": ["cache", "polling", "api", "server-status"],
+  "keywords": ["minecraft", "server", "website"],
+  "author": "GoidaCraft Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
   "engines": {
     "node": ">=14.0.0"
   }

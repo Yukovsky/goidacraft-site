@@ -5,6 +5,7 @@
 <title>Гойдакрафт — Серверные моды</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="assets/styles.css">
+<link rel="preload" as="image" href="assets/img/goidalogo.png">
 <style>
 html {
   scroll-behavior: smooth;
@@ -89,19 +90,33 @@ html {
   color: var(--brass-light); font-family: var(--f-mono); text-align: center;
   background: repeating-linear-gradient(45deg, #1a1108, #1a1108 10px, #2a1c0e 10px, #2a1c0e 20px);
 }
-.mods-video-inner .play {
-  width: 80px; height: 80px; border-radius: 50%;
-  background: linear-gradient(180deg, var(--copper-light), var(--copper-dark));
-  border: 3px solid var(--brass-dark);
-  display: grid; place-items: center; margin-bottom: 16px; cursor: pointer;
-  transition: transform 0.2s;
+.mods-video-inner .trailer-placeholder.trailer-soon {
+  gap: 10px;
+  background:
+    radial-gradient(circle at center, rgba(201,155,60,0.12), transparent 55%),
+    repeating-linear-gradient(45deg, #1a1108, #1a1108 10px, #2a1c0e 10px, #2a1c0e 20px);
 }
-.mods-video-inner .play:hover { transform: scale(1.08); }
-.mods-video-inner .play::before {
-  content: ''; width: 0; height: 0;
-  border-left: 22px solid #1a1108;
-  border-top: 14px solid transparent; border-bottom: 14px solid transparent;
-  margin-left: 6px;
+.mods-video-inner .soon-label {
+  margin: 0;
+  font-family: var(--f-title);
+  font-size: clamp(28px, 5vw, 54px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brass-light);
+  text-shadow: 0 2px 0 var(--brass-dark), 0 0 18px rgba(201,155,60,0.22);
+}
+.mods-video-inner .soon-rule {
+  width: min(220px, 42vw);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--brass), transparent);
+}
+.mods-video-inner .soon-note {
+  margin: 0;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(250, 235, 200, 0.7);
 }
 
 /* Build variants */
@@ -489,15 +504,15 @@ html {
 
 <nav class="topnav">
   <div class="topnav-inner">
-    <a href="index.html" class="topnav-brand">
-      <span style="display:inline-flex;width:28px;height:28px" class="gear-host" data-teeth="10" data-r="13" data-color="#c89b3c" data-highlight="#e8c878"></span>
+    <a href="/" class="topnav-brand">
+      <img class="topnav-logo" src="assets/img/goidalogo.png" alt="Логотип Гойдакрафт" loading="eager" fetchpriority="high" decoding="async">
       ГОЙДАКРАФТ
     </a>
     <div class="topnav-links">
-      <a href="index.html" class="topnav-link">Главная</a>
-      <a href="mods.html" class="topnav-link active">Моды</a>
-      <a href="connect.html" class="topnav-link">Подключение</a>
-      <a href="donors.html" class="topnav-link">Доноры</a>
+      <a href="/" class="topnav-link">Главная</a>
+      <a href="/mods" class="topnav-link active">Моды</a>
+      <a href="/connect" class="topnav-link">Подключение</a>
+      <a href="/donors" class="topnav-link">Доноры</a>
     </div>
   </div>
 </nav>
@@ -524,10 +539,10 @@ html {
       <span class="rivet corner-rivet cr4"></span>
       <p class="trailer-title">▸ Видео-обзор модов ◂</p>
       <div class="trailer-frame" id="mods-video-frame">
-        <div class="trailer-placeholder">
-          <div class="play" id="mods-play"></div>
-          <p>Вставьте YouTube ссылку на обзор модов</p>
-          <p style="font-size: 10px; opacity: 0.6; margin-top: 4px;">Кликните, чтобы вставить</p>
+        <div class="trailer-placeholder trailer-soon">
+          <p class="soon-label">Скоро...</p>
+          <span class="soon-rule" aria-hidden="true"></span>
+          <p class="soon-note">Обзор модпака в работе</p>
         </div>
       </div>
     </div>
@@ -827,7 +842,7 @@ function tryOpenConsole(rawValue) {
   try {
     sessionStorage.setItem('goida_console_access', '1');
   } catch (e) {}
-  const url = 'console.html?target=' + encodeURIComponent(target);
+  const url = '/console?target=' + encodeURIComponent(target);
   window.location.href = url;
   return true;
 }
@@ -865,16 +880,6 @@ modsSearchInput?.addEventListener('keydown', e => {
     return;
   }
   applyFilters();
-});
-
-// Mods page video
-document.getElementById('mods-play')?.addEventListener('click', () => {
-  const url = prompt('Вставьте YouTube ID или URL для видео про моды:', '');
-  if (!url) return;
-  let id = url;
-  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/);
-  if (m) id = m[1];
-  document.getElementById('mods-video-frame').innerHTML = `<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
 });
 
 // Smooth scroll for anchor links

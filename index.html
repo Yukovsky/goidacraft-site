@@ -4,7 +4,13 @@
 <meta charset="UTF-8">
 <title>Гойдакрафт — Главная</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="assets/img/goidalogo.png">
+<link rel="apple-touch-icon" href="assets/img/goidalogo.png">
 <link rel="stylesheet" href="assets/styles.css">
+<link rel="preload" as="image" href="assets/img/goidalogo.png">
+<link rel="preload" as="image" href="assets/img/title.png">
+<link rel="prefetch" href="/donors">
+<link rel="preconnect" href="/">
 <style>
 html {
   scroll-behavior: smooth;
@@ -19,7 +25,15 @@ html.loading {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   perspective: 900px;
   overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   transition: opacity 0.8s, visibility 0.8s;
+}
+html.loading #loader {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 #loader::before,
 #loader::after {
@@ -162,9 +176,9 @@ html.loading {
   position: relative; overflow: hidden;
 }
 .loader-progress::after {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0%;
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: var(--progress, 0%);
   background: linear-gradient(90deg, #94b6d3, #e7f3ff);
-  animation: load 2.5s ease-out forwards;
+  transition: width 0.2s ease-out;
 }
 .loader-progress::before {
   content: '';
@@ -178,15 +192,23 @@ html.loading {
   0% { transform: translateX(-110%); }
   100% { transform: translateX(110%); }
 }
-@keyframes load { to { width: 100%; } }
 
 /* ===== HERO ===== */
 .hero {
   position: relative;
   min-height: 92vh;
-  background: url('uploads/фон_2.png') center/cover no-repeat, linear-gradient(180deg, #cee2f3, #92b2cf);
+  background: url('assets/img/sky-bg.webp') center/cover no-repeat, linear-gradient(180deg, #cee2f3, #92b2cf);
   overflow: hidden;
   border-bottom: 4px solid var(--wood-dark);
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('assets/img/hero-bg.webp') center/cover no-repeat;
+  opacity: 0.14;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
 }
 .hero::before {
   content: ''; position: absolute; inset: 0;
@@ -534,7 +556,7 @@ html.loading {
 <div id="loader">
   <div class="loader-train-wrap">
     <div class="loader-track" aria-hidden="true"></div>
-    <img class="loader-train" src="uploads/поезд_итог.png" alt="">
+    <img class="loader-train" src="assets/img/train.png" alt="" loading="lazy" decoding="async">
     <div class="steam-stack" aria-hidden="true">
       <span></span><span></span><span></span>
     </div>
@@ -545,15 +567,15 @@ html.loading {
 
 <nav class="topnav">
   <div class="topnav-inner">
-    <a href="index.html" class="topnav-brand">
-      <span class="cog cog-small cog-spin" style="width:28px;height:28px;display:inline-block"></span>
+    <a href="/" class="topnav-brand">
+      <img class="topnav-logo" src="assets/img/goidalogo.png" alt="Логотип Гойдакрафт" loading="eager" fetchpriority="high" decoding="async">
       ГОЙДАКРАФТ
     </a>
     <div class="topnav-links">
-      <a href="index.html" class="topnav-link active">Главная</a>
-      <a href="mods.html" class="topnav-link">Моды</a>
-      <a href="connect.html" class="topnav-link">Подключение</a>
-      <a href="donors.html" class="topnav-link">Доноры</a>
+      <a href="/" class="topnav-link active">Главная</a>
+      <a href="mods" class="topnav-link">Моды</a>
+      <a href="connect" class="topnav-link">Подключение</a>
+      <a href="donors" class="topnav-link">Доноры</a>
     </div>
   </div>
 </nav>
@@ -561,9 +583,9 @@ html.loading {
 <section class="hero">
   <div class="hero-content">
     <div class="hero-text">
-      <img class="hero-title-mark" src="uploads/надпись.png" alt="Гойдакрафт">
+      <img class="hero-title-mark" src="assets/img/title.png" alt="Гойдакрафт" loading="eager" fetchpriority="high" decoding="async">
       <div class="hero-actions">
-        <a href="connect.html" class="hero-btn">Как подключиться</a>
+        <a href="connect" class="hero-btn">Как подключиться</a>
         <button class="hero-btn alt" id="hero-copy" data-ip="goidacraft.aboba.host">IP: goidacraft.aboba.host</button>
       </div>
     </div>
@@ -619,17 +641,17 @@ html.loading {
 
 <section class="quick-links">
   <div class="quick-links-inner">
-    <a class="ql-card" href="mods.html">
+    <a class="ql-card" href="mods">
       <div class="ql-icon"><span class="cog cog-large cog-spin" style="width:44px;height:44px"></span></div>
       <h3>Список модов</h3>
       <p>Create · Let's Do · Farmer's Delight</p>
     </a>
-    <a class="ql-card" href="connect.html">
+    <a class="ql-card" href="connect">
       <div class="ql-icon"><span class="cog cog-small cog-spin" style="width:44px;height:44px"></span></div>
       <h3>Подключение</h3>
       <p>IP, версия, инструкция, сборка модов</p>
     </a>
-    <a class="ql-card" href="donors.html">
+    <a class="ql-card" href="donors">
       <div class="ql-icon"><span class="cog cog-large cog-spin ccw" style="width:44px;height:44px"></span></div>
       <h3>Доска почёта</h3>
       <p>Те, кто поддержал проект финансово</p>
@@ -638,18 +660,142 @@ html.loading {
 </section>
 
 <script src="assets/decor.js"></script>
+<script src="assets/prefetch.js" defer></script>
 <script>
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('gone');
-    document.documentElement.classList.remove('loading');
-  }, 2200);
-});
-
-// Add loading class immediately on page start
-document.documentElement.classList.add('loading');
-
 const loader = document.getElementById('loader');
+const loaderText = loader ? loader.querySelector('.loader-text') : null;
+const loaderProgress = loader ? loader.querySelector('.loader-progress') : null;
+const SKIP_KEY = window.GoidacraftWarmup?.skipKey || 'goidacraft:skip-next-loader';
+const WARMUP_MARKER_KEY = 'goidacraft:warmup-version';
+const WARMUP_VERSION = 'v3';
+
+function setLoaderProgress(percent) {
+  if (!loaderProgress) return;
+  const clamped = Math.max(0, Math.min(100, percent));
+  loaderProgress.style.setProperty('--progress', `${clamped}%`);
+}
+
+function setLoaderText(message) {
+  if (!loaderText) return;
+  loaderText.textContent = message;
+}
+
+function showLoader() {
+  document.documentElement.classList.add('loading');
+  setLoaderProgress(0);
+  setLoaderText('Подготовка маршрута...');
+}
+
+function hideLoader() {
+  if (loader) {
+    loader.classList.add('gone');
+  }
+  document.documentElement.classList.remove('loading');
+}
+
+function consumeSkipLoaderFlag() {
+  try {
+    const shouldSkip = sessionStorage.getItem(SKIP_KEY) === '1';
+    if (shouldSkip) {
+      sessionStorage.removeItem(SKIP_KEY);
+      return true;
+    }
+  } catch (_) {
+    return false;
+  }
+  return false;
+}
+
+async function hasWarmCache() {
+  try {
+    const marker = localStorage.getItem(WARMUP_MARKER_KEY);
+    if (marker !== WARMUP_VERSION) return false;
+  } catch (_) {
+    return false;
+  }
+
+  if (!('caches' in window)) {
+    return true;
+  }
+
+  const criticalUrls = [
+    '/assets/img/train.png',
+    '/assets/img/title.png',
+    '/assets/img/goidalogo.png',
+    '/assets/styles.css',
+    '/assets/decor.js',
+  ];
+
+  try {
+    const checks = await Promise.all(criticalUrls.map(async (url) => {
+      const response = await caches.match(url, { ignoreSearch: true });
+      return Boolean(response);
+    }));
+    return checks.every(Boolean);
+  } catch (_) {
+    return false;
+  }
+}
+
+function progressLabelByStage(stage) {
+  switch (stage) {
+    case 'images':
+      return 'Кэшируем изображения...';
+    case 'server':
+      return 'Проверяем подключение к серверу...';
+    case 'pages':
+      return 'Готовим страницы...';
+    default:
+      return 'Подготовка маршрута...';
+  }
+}
+
+async function runWarmup(withVisualProgress) {
+  const warmup = window.GoidacraftWarmup?.run;
+  if (typeof warmup !== 'function') return;
+
+  if (!withVisualProgress) {
+    await warmup();
+    try { localStorage.setItem(WARMUP_MARKER_KEY, WARMUP_VERSION); } catch (_) {}
+    return;
+  }
+
+  await warmup({
+    onProgress: ({ completed, total, stage }) => {
+      const ratio = total > 0 ? completed / total : 1;
+      setLoaderProgress(Math.round(ratio * 100));
+      setLoaderText(progressLabelByStage(stage));
+    }
+  });
+
+  setLoaderProgress(100);
+  setLoaderText('Маршрут готов');
+  try { localStorage.setItem(WARMUP_MARKER_KEY, WARMUP_VERSION); } catch (_) {}
+}
+
+async function bootstrapPage() {
+  const skipForInternalNavigation = consumeSkipLoaderFlag();
+  const warmAlreadyPrepared = skipForInternalNavigation ? true : await hasWarmCache();
+
+  if (warmAlreadyPrepared) {
+    hideLoader();
+    runWarmup(false).catch(() => {});
+    return;
+  }
+
+  showLoader();
+  await runWarmup(true);
+  hideLoader();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    bootstrapPage().catch(() => hideLoader());
+  }, { once: true });
+} else {
+  bootstrapPage().catch(() => hideLoader());
+}
+
 if (loader) {
   const updateLoaderTilt = (event) => {
     const bounds = loader.getBoundingClientRect();

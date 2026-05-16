@@ -1,25 +1,13 @@
 /**
  * Server Status Fetcher
- * Fetches cached server status from local Backend API
+ * Fetches cached server status from external API
  * 
- * Architecture: Background Polling + Shared Cache
- * - Backend worker polls external API every 5 minutes
- * - Data cached in server memory
- * - Client always gets instant data from cache
+ * Architecture: Service Worker Cache OR In-Browser Cache
+ * - Client gets instant data from cache
  */
 
 const ServerStatus = (() => {
-  // When opened as file:// there is no web origin, so always use localhost backend.
-  const IS_LOCAL_RUNTIME =
-    window.location.protocol === 'file:' ||
-    window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1';
-
-  const LOCAL_API_URL = IS_LOCAL_RUNTIME
-    ? 'http://localhost:3000/api/server-status'
-    : '/api/server-status';
-  
-  const FALLBACK_API_URL = 'https://api.mcsrvstat.us/2/goidacraft.aboba.host';
+  const EXTERNAL_API_URL = 'https://api.mcsrvstat.us/2/goidacraft.aboba.host';
   const CLIENT_CACHE_DURATION = 30000; // 30 seconds (local browser cache)
   const POLL_INTERVAL = 30000; // 30 seconds (client-side polling)
   
@@ -27,8 +15,7 @@ const ServerStatus = (() => {
   let cachedData = null;
 
   /**
-   * Fetch from local backend API
-   * Falls back to external API if backend is unavailable
+   * Fetch from external API
    */
   const fetchServerStatus = async () => {
     try {
@@ -39,42 +26,14 @@ const ServerStatus = (() => {
         return cachedData;
       }
 
-      // Try local API first
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-        const response = await fetch(LOCAL_API_URL, {
-          method: 'GET',
-          headers: { 'Accept': 'application/json' },
-          signal: controller.signal,
-        });
-
-        clearTimeout(timeoutId);
-        
-        if (response.ok) {
-          const apiResponse = await response.json();
-          // Extract actual server data
-          const data = apiResponse.data || apiResponse;
-          cachedData = data;
-          lastUpdate = now;
-          
-          console.debug('✓ Data from local backend cache');
-          return data;
-        }
-      } catch (localError) {
-        console.debug('Local API unavailable, falling back to external API:', localError.message);
-      }
-
-      // Fallback to external API if local is unavailable
-      const response = await fetch(FALLBACK_API_URL);
+      const response = await fetch(EXTERNAL_API_URL);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       
       const data = await response.json();
       cachedData = data;
       lastUpdate = now;
       
-      console.debug('⚠ Data from external API (fallback mode)');
+      console.debug('✓ Data from external API');
       return data;
     } catch (error) {
       console.error('Server status fetch error:', error);
@@ -143,7 +102,6 @@ const ServerStatus = (() => {
     updateLicenseStatus(licenseElementId);
 
     // Set up auto-refresh (30 seconds)
-    // Backend already updates cache every 5 minutes, so client just polls regularly
     setInterval(() => {
       updateStatusElement(statusElementId);
       updatePlayerCount(playerElementId);

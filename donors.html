@@ -5,6 +5,9 @@
 <title>Гойдакрафт — Доска почёта</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="assets/styles.css">
+<link rel="preload" as="image" href="assets/img/goidalogo.png">
+<link rel="preload" as="script" href="assets/donors-data.js">
+<link rel="preconnect" href="/">
 <style>
 html {
   scroll-behavior: smooth;
@@ -251,6 +254,51 @@ html {
   font-size: 17px; color: var(--ink-soft); max-width: 580px; margin: 0 auto;
 }
 
+/* Donation appeal section */
+.donation-appeal {
+  margin-top: 60px;
+  background: linear-gradient(135deg, #3a2810 0%, #2a1808 100%);
+  padding: 50px 40px;
+  text-align: center;
+  border: 3px solid var(--brass-dark);
+  border-radius: 4px;
+  position: relative;
+  max-width: 900px;
+  margin-left: auto; margin-right: auto;
+}
+.donation-appeal::before, .donation-appeal::after {
+  content: '✦'; position: absolute;
+  font-size: 24px; color: var(--brass);
+}
+.donation-appeal::before { top: 14px; left: 24px; }
+.donation-appeal::after { bottom: 14px; right: 24px; }
+.donation-appeal h3 {
+  font-family: var(--f-display);
+  font-size: 28px;
+  font-style: italic;
+  color: var(--brass-light);
+  margin: 0 0 18px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.donation-appeal p {
+  font-size: 16px;
+  color: var(--paper-2);
+  max-width: 680px;
+  margin: 0 auto 18px;
+  line-height: 1.6;
+}
+.donation-appeal a {
+  color: var(--brass-light);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 2px solid var(--brass);
+  transition: color 0.3s, border-color 0.3s;
+}
+.donation-appeal a:hover {
+  color: var(--brass);
+  border-bottom-color: var(--brass-light);
+}
+
 @media (max-width: 980px) {
   .topnav-links { gap: 0; flex-wrap: wrap; }
 }
@@ -260,15 +308,15 @@ html {
 
 <nav class="topnav">
   <div class="topnav-inner">
-    <a href="index.html" class="topnav-brand">
-      <span style="display:inline-flex;width:28px;height:28px" class="gear-host" data-teeth="10" data-r="13" data-color="#c89b3c" data-highlight="#e8c878"></span>
+    <a href="/" class="topnav-brand">
+      <img class="topnav-logo" src="assets/img/goidalogo.png" alt="Логотип Гойдакрафт" loading="eager" fetchpriority="high" decoding="async">
       ГОЙДАКРАФТ
     </a>
     <div class="topnav-links">
-      <a href="index.html" class="topnav-link">Главная</a>
-      <a href="mods.html" class="topnav-link">Моды</a>
-      <a href="connect.html" class="topnav-link">Подключение</a>
-      <a href="donors.html" class="topnav-link active">Доноры</a>
+      <a href="/" class="topnav-link">Главная</a>
+      <a href="/mods" class="topnav-link">Моды</a>
+      <a href="/connect" class="topnav-link">Подключение</a>
+      <a href="/donors" class="topnav-link active">Доноры</a>
     </div>
   </div>
 </nav>
@@ -305,13 +353,20 @@ html {
 
     <div class="thank-you">
       <h3>Каждый дирижабль в небе летит на вашем угле.</h3>
-      <p>Гойдакрафт — это не коммерческий проект. Все средства идут только на хостинг и поддержку. Огромное спасибо каждому, кто помог проекту остаться на плаву.</p>
+      <p>Гойдакрафт — это не коммерческий проект. Все средства идят только на хостинг и поддержку. Огромное спасибо каждому, кто помог проекту остаться на плаву.</p>
+    </div>
+
+    <div class="donation-appeal">
+      <h3>Помогите нам развиваться</h3>
+      <p>Вы можете поддержать проект, задонатив любую сумму — каждый рубль помогает нам совершенствовать сервер и проводить улучшения. Мы будем вам очень благодарны и ваше имя появится среди почётных людей выше!</p>
+      <p>По вопросам пожертвований, пожалуйста, напишите в Telegram: <a href="https://t.me/Roman_Yukovsky" target="_blank">сюда</a></p>
     </div>
   </div>
 </section>
 
 <script src="assets/decor.js"></script>
 <script src="assets/donors-data.js"></script>
+<script src="assets/prefetch.js" defer></script>
 <script>
 const donorsSource = (window.DONORS_DATA && Array.isArray(window.DONORS_DATA.entries))
   ? window.DONORS_DATA.entries

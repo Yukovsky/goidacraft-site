@@ -5,6 +5,7 @@
 <title>Гойдакрафт — Подключение</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="assets/styles.css">
+<link rel="preload" as="image" href="assets/img/goidalogo.png">
 <style>
 html {
   scroll-behavior: smooth;
@@ -264,15 +265,15 @@ html {
 
 <nav class="topnav">
   <div class="topnav-inner">
-    <a href="index.html" class="topnav-brand">
-      <span style="display:inline-flex;width:28px;height:28px" class="gear-host" data-teeth="10" data-r="13" data-color="#c89b3c" data-highlight="#e8c878"></span>
+    <a href="/" class="topnav-brand">
+      <img class="topnav-logo" src="assets/img/goidalogo.png" alt="Логотип Гойдакрафт" loading="eager" fetchpriority="high" decoding="async">
       ГОЙДАКРАФТ
     </a>
     <div class="topnav-links">
-      <a href="index.html" class="topnav-link">Главная</a>
-      <a href="mods.html" class="topnav-link">Моды</a>
-      <a href="connect.html" class="topnav-link active">Подключение</a>
-      <a href="donors.html" class="topnav-link">Доноры</a>
+      <a href="/" class="topnav-link">Главная</a>
+      <a href="mods" class="topnav-link">Моды</a>
+      <a href="connect" class="topnav-link active">Подключение</a>
+      <a href="donors" class="topnav-link">Доноры</a>
     </div>
   </div>
 </nav>
@@ -371,7 +372,7 @@ html {
       <p>Для Modrinth, Prism и похожих лаунчеров. Содержит те же папки, но устанавливается автоматически без ручного копирования файлов.</p>
     </article>
   </div>
-  <a href="mods.html#build-variants" class="dl-btn" aria-label="Скачать сборку модов">
+  <a href="mods#build-variants" class="dl-btn" aria-label="Скачать сборку модов">
     <span class="gear-host gear-spin" data-teeth="10" data-r="11" data-color="#3a1c08" data-highlight="#7a4818"></span>
     Скачать моды
   </a>
