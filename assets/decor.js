@@ -354,6 +354,12 @@
           setLogoAnimationState('paused');
           pauseSpin();
         }, { passive: true });
+
+        // Ensure the favicon and in-page logo are in the initial (unrotated) state on load
+        // This prevents preserved/paused rotation frames from showing up after navigations.
+        stopSpin();
+        setLogoAnimationState('paused');
+        brand.classList.remove('logo-spin');
       }
     })();
   });

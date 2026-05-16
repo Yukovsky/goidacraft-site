@@ -389,16 +389,16 @@ html {
 
 /* Detail panel */
 .detail-panel {
-  position: sticky;
-  top: 80px;
   margin-top: 40px;
   background: var(--paper);
   border: 3px solid var(--ink);
   box-shadow: 0 12px 30px rgba(0,0,0,0.18);
   padding: 28px 32px;
-  position: relative;
   z-index: 5;
   display: none;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
 }
 .detail-panel.open { display: block; }
 .detail-panel .corner { position: absolute; width: 16px; height: 16px; border: 2px solid var(--ink); }
@@ -786,9 +786,29 @@ CATS.forEach(c => {
 });
 
 const dp = document.getElementById('detail-panel');
+let activeModId = null;
+
+function closeMod() {
+  dp.classList.remove('open');
+  activeModId = null;
+  document.querySelectorAll('.mod-node.active').forEach(n => n.classList.remove('active'));
+}
+
 function openMod(m, node) {
+  if (activeModId === m.n && dp.classList.contains('open')) {
+    closeMod();
+    return;
+  }
+
   document.querySelectorAll('.mod-node.active').forEach(n => n.classList.remove('active'));
   node?.classList.add('active');
+  activeModId = m.n;
+
+  const catEl = node?.closest('.bp-cat');
+  if (catEl && dp.parentElement !== catEl) {
+    catEl.appendChild(dp);
+  }
+
   dp.classList.add('open');
   document.getElementById('dp-name').textContent = m.name;
   document.getElementById('dp-cat').textContent = m.catLabel;
@@ -796,12 +816,9 @@ function openMod(m, node) {
   document.getElementById('dp-num').textContent = '№ ' + String(m.n).padStart(2, '0');
   dp.style.borderColor = m.color;
   document.querySelectorAll('.detail-panel .corner').forEach(c => c.style.borderColor = m.color);
-  // Scroll into view smoothly
-  dp.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 document.getElementById('dp-close').addEventListener('click', () => {
-  dp.classList.remove('open');
-  document.querySelectorAll('.mod-node.active').forEach(n => n.classList.remove('active'));
+  closeMod();
 });
 
 // Category filter

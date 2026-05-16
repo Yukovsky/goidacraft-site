@@ -485,10 +485,10 @@ function commandResponse(commandRaw) {
     return;
   }
 
-  const gameModeMatch = command.match(/^gamemode\s+([\wа-яА-ЯёЁ.-]+)\s+(creative|spectator|survival)$/i);
+  const gameModeMatch = command.match(/^gamemode\s+(creative|spectator|survival)\s+([\wа-яА-ЯёЁ.-]+)$/i);
   if (gameModeMatch) {
-    const target = gameModeMatch[1];
-    const mode = gameModeMatch[2].toLowerCase();
+    const mode = gameModeMatch[1].toLowerCase();
+    const target = gameModeMatch[2];
     const modeLabels = {
       creative: 'Творческий',
       spectator: 'Наблюдателя',

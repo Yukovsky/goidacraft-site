@@ -1,1 +1,45 @@
 node_modules/*
+
+# Next.js build output
+.next/
+out/
+build/
+
+# Local env files (do not ignore .env.example)
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Coverage and caches
+coverage/
+.cache/
+.parcel-cache/
+
+# Misc
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# pnpm
+/.pnp
+.pnp.js
+.pnpm-debug.log
