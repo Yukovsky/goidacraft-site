@@ -2,17 +2,20 @@
   "name": "goidacraft-site",
   "version": "1.0.0",
   "description": "GoidaCraft game server website",
-  "main": "server.js",
-  "type": "commonjs",
+  "main": "next.config.js",
+  "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
-  "keywords": ["minecraft", "server", "website"],
-  "author": "GoidaCraft Team",
+  "keywords": ["minecraft", "server", "майнкрафт", "create", "create: aeronautics", "криэйт", "аэронафтика"],
+  "author": "KISSASSES",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2"
+    "next": "^13.4.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "engines": {
     "node": ">=14.0.0"
