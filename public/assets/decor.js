@@ -249,7 +249,7 @@
     });
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function _init() {
     enhanceImages();
     registerImageCacheWorker();
     initNavigationLoaderIntent();
@@ -259,12 +259,16 @@
     };
     populateGears();
     initTopnavMobile();
-    // ====== Favicon rotation (activated on brand hover/focus) ======
+    // ====== Favicon + logo rotation (JS-driven, fully synchronised) ======
     (function () {
       const FAV_SRC = '/assets/img/goidalogo.png';
       const SIZE = 64;
+      // ~0.025 rad/frame @ 60 fps ≈ 1.5 rad/s ≈ 4.2 s/revolution
+      const STEP = 0.025;
       let rafId = null;
       let angle = 0;
+      let logoEl = null;
+
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.src = FAV_SRC;
@@ -274,93 +278,79 @@
 
       function setFavicon(href) {
         let link = document.querySelector('link[rel~="icon"]');
-        if (!link) {
-          link = document.createElement('link');
-          link.rel = 'icon';
-          document.head.appendChild(link);
-        }
+        if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
         link.href = href;
       }
 
-      function drawFrame() {
+      function applyAngle(a) {
         ctx.clearRect(0, 0, SIZE, SIZE);
         ctx.save();
         ctx.translate(SIZE / 2, SIZE / 2);
-        ctx.rotate(angle);
-        // draw image centered, slightly inset
-        const drawSize = Math.min(SIZE * 0.85, SIZE - 6);
-        ctx.drawImage(img, -drawSize / 2, -drawSize / 2, drawSize, drawSize);
+        ctx.rotate(a);
+        ctx.drawImage(img, -SIZE / 2, -SIZE / 2, SIZE, SIZE);
         ctx.restore();
-        const url = canvas.toDataURL('image/png');
-        setFavicon(url);
-        angle += 0.12; // radians per frame-ish
+        setFavicon(canvas.toDataURL('image/png'));
+        if (logoEl) logoEl.style.transform = `rotate(${a}rad)`;
+      }
+
+      function drawFrame() {
+        angle = (angle + STEP) % (Math.PI * 2);
+        applyAngle(angle);
         rafId = requestAnimationFrame(drawFrame);
       }
 
       function startSpin() {
         if (rafId) return;
-        if (!img.complete) {
-          img.onload = () => { rafId = requestAnimationFrame(drawFrame); };
-        } else {
-          rafId = requestAnimationFrame(drawFrame);
-        }
+        if (!img.complete) { img.onload = () => { rafId = requestAnimationFrame(drawFrame); }; }
+        else { rafId = requestAnimationFrame(drawFrame); }
       }
 
       function pauseSpin() {
         if (rafId) cancelAnimationFrame(rafId);
         rafId = null;
-        // keep current `angle` and current canvas favicon (do not restore)
+        // angle and both visuals stay frozen at current position
       }
 
       function stopSpin() {
         if (rafId) cancelAnimationFrame(rafId);
         rafId = null;
         angle = 0;
-        // restore original favicon file
         setFavicon(FAV_SRC);
+        if (logoEl) logoEl.style.transform = '';
       }
+
+      // Reset on Next.js client-side navigation (pushState) and browser back/forward
+      const _push = history.pushState.bind(history);
+      history.pushState = function (...args) { _push(...args); stopSpin(); };
+      window.addEventListener('popstate', stopSpin);
+
+      // Reset when switching browser tabs
+      document.addEventListener('visibilitychange', () => { if (document.hidden) stopSpin(); });
 
       const brand = document.querySelector('.topnav-brand');
       if (brand) {
-        const logoEl = brand.querySelector('.topnav-logo');
-        const setLogoAnimationState = (state) => { if (logoEl) logoEl.style.animationPlayState = state; };
+        logoEl = brand.querySelector('.topnav-logo');
+        if (logoEl) {
+          // Disable CSS animation — rotation is driven entirely by JS
+          logoEl.style.animation = 'none';
+          logoEl.style.transformOrigin = '50% 50%';
+        }
 
-        brand.addEventListener('mouseenter', () => {
-          brand.classList.add('logo-spin');
-          setLogoAnimationState('running');
-          startSpin();
-        });
-        brand.addEventListener('mouseleave', () => {
-          setLogoAnimationState('paused');
-          pauseSpin();
-        });
-        brand.addEventListener('focus', () => {
-          brand.classList.add('logo-spin');
-          setLogoAnimationState('running');
-          startSpin();
-        }, true);
-        brand.addEventListener('blur', () => {
-          setLogoAnimationState('paused');
-          pauseSpin();
-        }, true);
+        brand.addEventListener('mouseenter', startSpin);
+        brand.addEventListener('mouseleave', pauseSpin);
+        brand.addEventListener('focus', startSpin, true);
+        brand.addEventListener('blur', pauseSpin, true);
+        brand.addEventListener('touchstart', startSpin, { passive: true });
+        document.addEventListener('touchend', pauseSpin, { passive: true });
 
-        // touch handlers: start on touchstart, pause on touchend anywhere
-        brand.addEventListener('touchstart', () => {
-          brand.classList.add('logo-spin');
-          setLogoAnimationState('running');
-          startSpin();
-        }, { passive: true });
-        document.addEventListener('touchend', () => {
-          setLogoAnimationState('paused');
-          pauseSpin();
-        }, { passive: true });
-
-        // Ensure the favicon and in-page logo are in the initial (unrotated) state on load
-        // This prevents preserved/paused rotation frames from showing up after navigations.
-        stopSpin();
-        setLogoAnimationState('paused');
-        brand.classList.remove('logo-spin');
+        stopSpin(); // ensure clean initial state
       }
     })();
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', _init);
+  } else {
+    _init();
+  }
 })();

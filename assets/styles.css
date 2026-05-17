@@ -244,15 +244,6 @@ h1, h2, h3 {
 }
 .topnav-logo { transform-origin: 50% 50%; }
 
-@keyframes favicon-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.topnav-brand:hover .topnav-logo,
-.topnav-brand.logo-spin .topnav-logo {
-  animation: favicon-spin 4.4s linear infinite;
-}
 .topnav-brand:hover { color: var(--brass-light); }
 .topnav-links {
   display: flex;
@@ -1146,13 +1137,23 @@ html.loading #loader {
 /* ============ Build variants ============ */
 .build-variants { background: var(--paper); padding: 60px 32px; border-bottom: 4px solid var(--wood-dark); }
 .build-variants-inner { max-width: 1100px; margin: 0 auto; }
-.build-variants h2 { text-align: center; font-size: clamp(30px, 4vw, 44px); margin: 0 0 10px; }
+.build-variants h2 { text-align: center; font-size: clamp(30px, 4vw, 44px); margin: 0 0 15px; }
 .build-variants > .build-variants-inner > p { text-align: center; margin: 0 auto 28px; max-width: 760px; color: var(--ink-soft); }
-.build-grid { display: grid; grid-template-columns: repeat(2, minmax(280px, 1fr)); gap: 20px; }
+.build-grid { display: grid; grid-template-columns: repeat(2, minmax(280px, 1fr)); gap: 20px; margin-bottom: 24px; }
 .build-card { background: linear-gradient(180deg, #fff5dd, #f2dfb9); border: 2px solid var(--copper-dark); padding: 22px 24px; box-shadow: 0 8px 18px rgba(0,0,0,0.14); }
 .build-card h3 { margin: 0 0 10px; font-size: 30px; }
 .build-card h3 span { display: block; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--copper-dark); margin-bottom: 8px; }
 .build-card p { margin: 0; color: var(--ink-soft); line-height: 1.5; }
+
+/* ============ Installation ways (mods page) ============ */
+.install-ways { text-align: center; max-width: 860px; margin: 32px auto 0; }
+.install-ways h2 { font-size: clamp(26px, 3.5vw, 38px); margin: 8px 0 8px; color: var(--ink); }
+.install-ways p { margin: 0 auto 0; color: var(--ink-soft); font-family: var(--f-display); font-style: italic; font-size: 18px; max-width: 760px; }
+
+/* make the method cards look like the build cards when marked as install-card */
+.method-card.install-card { background: linear-gradient(180deg, #fff5dd, #f2dfb9); border: 2px solid var(--copper-dark); padding: 22px 24px; box-shadow: 0 8px 18px rgba(0,0,0,0.14); color: var(--ink); }
+.method-card.install-card h3 { margin: 0 0 10px; font-size: 24px; color: var(--ink); font-family: var(--f-display); }
+.method-card.install-card p { margin: 0; color: var(--ink-soft); line-height: 1.5; }
 
 /* ============ Blueprint (mods) ============ */
 .blueprint {

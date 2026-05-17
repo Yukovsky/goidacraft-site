@@ -107,7 +107,7 @@ export default function ConsolePage() {
     const op = cmd.match(/^op\s+([\wа-яА-ЯёЁ.-]+)$/i)
     if (op) { push(`Игрок ${op[1]} назначен оператором`, 'ok'); return }
     const gm = cmd.match(/^gamemode\s+(creative|spectator|survival)\s+([\wа-яА-ЯёЁ.-]+)$/i)
-    if (gm) { const labels = {creative:'Творческий',spectator:'Наблюдателя',survival:'Выживание'}; push(`Режим ${gm[2]} → ${labels[gm[1]]}`, 'ok'); return }
+    if (gm) { const labels = {creative:'Творческий',spectator:'Наблюдателя',survival:'Выживание'}; push(`Режим ${gm[2]} изменён на ${labels[gm[1]]}`, 'ok'); return }
     const ban = cmd.match(/^ban\s+([\wа-яА-ЯёЁ.-]+)$/i)
     if (ban) { push(`Игрок ${ban[1]} заблокирован`, 'error'); return }
     const give = cmd.match(/^give\s+(\S+)\s+(\S+)$/i)

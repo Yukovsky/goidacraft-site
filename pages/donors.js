@@ -5,7 +5,6 @@ const DONORS_RAW = [
   { nickname: 'byteswing',        amount: 2000   },
   { nickname: 'ice3322',          amount: 1700   },
   { nickname: 'PLYukari_Akiyama', amount: 1500   },
-  { nickname: 'FiJiK_',           amount: 567.8  },
   { nickname: 'dzetsu',           amount: 567.8  },
   { nickname: 'puredistortion',   amount: 400    },
   { nickname: 'THE_MO0NS',        amount: 397    },

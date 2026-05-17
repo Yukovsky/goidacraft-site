@@ -224,12 +224,14 @@ export default function ModsPage() {
               <p>Самые важные моды + оптимизация Minecraft. На выходе более стабильный и визуально приятный Minecraft.</p>
             </article>
           </div>
-          <div className="download-methods" style={{ marginTop: '32px' }}>
-            <article className="method-card">
+            <h2>Два способа установки</h2>
+            <p>Два способа для удобства установки как игрокам с лицензией, так и без</p>
+          <div className="download-methods" style={{ marginTop: '24px' }}>
+            <article className="method-card install-card">
               <h3>ZIP-архив</h3>
-              <p>Ручная установка: распакуйте в профиль папки <code>resourcepacks/</code> и <code>mods/</code>.</p>
+              <p>Ручная установка: распакуйте в профиль все папки из архива (например, resourcepacks/, mods/, kubejs/).</p>
             </article>
-            <article className="method-card">
+            <article className="method-card install-card">
               <h3>.mrpack</h3>
               <p>Для Modrinth, Prism и похожих лаунчеров. Устанавливается автоматически.</p>
             </article>
