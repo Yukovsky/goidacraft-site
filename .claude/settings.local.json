@@ -3,7 +3,10 @@
     "allow": [
       "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
       "PowerShell(Remove-Item *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Skill(context-mode:ctx-upgrade)",
+      "mcp__plugin_context-mode_context-mode__ctx_upgrade",
+      "Bash(node *)"
     ]
   }
 }

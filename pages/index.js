@@ -1,124 +1,19 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 
 export default function HomePage() {
-  const loaderRef = useRef(null)
-
   useEffect(() => {
-    const loader = loaderRef.current
-    if (!loader) return
-
-    const loaderText = loader.querySelector('.loader-text')
-    const loaderProgress = loader.querySelector('.loader-progress')
-
-    const SKIP_KEY = window.GoidacraftWarmup?.skipKey || 'goidacraft:skip-next-loader'
-    const WARMUP_MARKER_KEY = 'goidacraft:warmup-version'
-    const WARMUP_VERSION = 'v3'
-
-    function setLoaderProgress(percent) {
-      if (!loaderProgress) return
-      loaderProgress.style.setProperty('--progress', `${Math.max(0, Math.min(100, percent))}%`)
-    }
-    function setLoaderText(msg) {
-      if (loaderText) loaderText.textContent = msg
-    }
-    function showLoader() {
-      document.documentElement.classList.add('loading')
-      setLoaderProgress(0)
-      setLoaderText('Подготовка маршрута...')
-    }
-    function hideLoader() {
-      loader.classList.add('gone')
-      document.documentElement.classList.remove('loading')
-    }
-    function consumeSkip() {
-      try {
-        if (sessionStorage.getItem(SKIP_KEY) === '1') {
-          sessionStorage.removeItem(SKIP_KEY)
-          return true
-        }
-      } catch (_) {}
-      return false
-    }
-    async function hasWarmCache() {
-      try {
-        if (localStorage.getItem(WARMUP_MARKER_KEY) !== WARMUP_VERSION) return false
-      } catch (_) { return false }
-      if (!('caches' in window)) return true
-      try {
-        const criticalUrls = [
-          '/assets/img/train.png', '/assets/img/title.png', '/assets/img/goidalogo.png',
-          '/assets/styles.css', '/assets/decor.js',
-        ]
-        const checks = await Promise.all(criticalUrls.map(async (url) => {
-          const r = await caches.match(url, { ignoreSearch: true })
-          return Boolean(r)
-        }))
-        return checks.every(Boolean)
-      } catch (_) { return false }
-    }
-    async function runWarmup(withVisual) {
-      const warmup = window.GoidacraftWarmup?.run
-      if (typeof warmup !== 'function') return
-      if (!withVisual) {
-        await warmup()
-        try { localStorage.setItem(WARMUP_MARKER_KEY, WARMUP_VERSION) } catch (_) {}
-        return
-      }
-      const labels = { images: 'Кэшируем изображения...', server: 'Проверяем подключение к серверу...', pages: 'Готовим страницы...' }
-      await warmup({
-        onProgress: ({ completed, total, stage }) => {
-          setLoaderProgress(Math.round((total > 0 ? completed / total : 1) * 100))
-          setLoaderText(labels[stage] || 'Подготовка маршрута...')
-        }
-      })
-      setLoaderProgress(100)
-      setLoaderText('Маршрут готов')
-      try { localStorage.setItem(WARMUP_MARKER_KEY, WARMUP_VERSION) } catch (_) {}
-    }
-    async function bootstrap() {
-      const skip = consumeSkip()
-      const warm = skip ? true : await hasWarmCache()
-      if (warm) { hideLoader(); runWarmup(false).catch(() => {}); return }
-      showLoader()
-      await runWarmup(true)
-      hideLoader()
-    }
-    bootstrap().catch(() => hideLoader())
-
-    // Pointer tilt on loader
-    const updateTilt = (e) => {
-      const b = loader.getBoundingClientRect()
-      const ox = e.clientX - b.left - b.width / 2
-      const oy = e.clientY - b.top - b.height / 2
-      loader.style.setProperty('--mx', `${ox}px`)
-      loader.style.setProperty('--my', `${oy}px`)
-      loader.style.setProperty('--lx', `${ox * 0.08}px`)
-      loader.style.setProperty('--ly', `${oy * 0.08}px`)
-    }
-    loader.addEventListener('pointermove', updateTilt)
-    loader.addEventListener('pointerleave', () => {
-      loader.style.setProperty('--mx', '0px')
-      loader.style.setProperty('--my', '0px')
-      loader.style.setProperty('--lx', '0px')
-      loader.style.setProperty('--ly', '0px')
-    })
-
-    // Copy IP button
     const btn = document.getElementById('hero-copy')
-    if (btn) {
-      btn.addEventListener('click', () => {
-        navigator.clipboard.writeText(btn.dataset.ip).catch(() => {})
-        const old = btn.textContent
-        btn.textContent = 'IP скопирован'
-        setTimeout(() => { btn.textContent = old }, 1800)
-      })
+    if (!btn) return
+    const handleClick = () => {
+      navigator.clipboard.writeText(btn.dataset.ip).catch(() => {})
+      const old = btn.textContent
+      btn.textContent = 'IP скопирован'
+      setTimeout(() => { btn.textContent = old }, 1800)
     }
-
-    return () => {
-      loader.removeEventListener('pointermove', updateTilt)
-    }
+    btn.addEventListener('click', handleClick)
+    return () => btn.removeEventListener('click', handleClick)
   }, [])
 
   return (
@@ -131,18 +26,6 @@ export default function HomePage() {
         <link rel="preload" as="image" href="/assets/img/goidalogo.png" />
         <link rel="preload" as="image" href="/assets/img/title.png" />
       </Head>
-
-      <div id="loader" ref={loaderRef}>
-        <div className="loader-train-wrap">
-          <div className="loader-track" aria-hidden="true" />
-          <img className="loader-train" src="/assets/img/train.png" alt="" loading="lazy" decoding="async" />
-          <div className="steam-stack" aria-hidden="true">
-            <span /><span /><span />
-          </div>
-        </div>
-        <div className="loader-text">Подготовка маршрута…</div>
-        <div className="loader-progress" />
-      </div>
 
       <section className="hero">
         <div className="hero-content">

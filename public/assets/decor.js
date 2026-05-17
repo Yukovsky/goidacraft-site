@@ -12,21 +12,7 @@
     '/assets/img/hero-bg.webp',
     '/assets/img/gear-small.png',
     '/assets/img/gear-large.png',
-    '/assets/cursor/busy.gif',
-    '/assets/cursor/resize_nwse.png',
-    '/assets/cursor/resize_ns.png',
-    '/assets/cursor/resize_nesw.png',
-    '/assets/cursor/resize_ew.png',
-    '/assets/cursor/resize_all.png',
-    '/assets/cursor/pointing_hand.png',
-    '/assets/cursor/not_allowed.png',
-    '/assets/cursor/ibeam.png',
-    '/assets/cursor/grabbing.png',
-    '/assets/cursor/default.png',
-    '/assets/cursor/crosshair.png',
   ];
-  const WARMUP_PAGE_URLS = ['/', '/mods', '/connect', '/donors'];
-  const SERVER_STATUS_URL = 'https://api.mcsrvstat.us/2/goidacraft.aboba.host';
 
   // ====== Auto-populate cogs ======
   // Convert any .gear-host element into a PNG cog (big/small).
@@ -124,42 +110,11 @@
     }));
   }
 
-  async function prefetchPages() {
-    await Promise.allSettled(WARMUP_PAGE_URLS.map(async (url) => {
-      try {
-        await fetch(url, {
-          cache: 'force-cache',
-          credentials: 'same-origin',
-          mode: 'same-origin',
-        });
-      } catch (_) {
-        // Best effort only.
-      }
-    }));
-  }
-
-  async function prefetchServerStatus() {
-    try {
-      if (window.ServerStatus?.fetch) {
-        await window.ServerStatus.fetch();
-        return;
-      }
-
-      await fetch(SERVER_STATUS_URL, {
-        cache: 'no-store',
-      });
-    } catch (_) {
-      // Server status warmup can fail without blocking UI.
-    }
-  }
-
   async function warmupResources(options = {}) {
     const onProgress = typeof options.onProgress === 'function' ? options.onProgress : null;
 
     const tasks = [
       { stage: 'images', run: () => prefetchImages() },
-      { stage: 'server', run: () => prefetchServerStatus() },
-      { stage: 'pages', run: () => prefetchPages() },
     ];
 
     const totalTasks = tasks.length;
@@ -259,92 +214,52 @@
     };
     populateGears();
     initTopnavMobile();
-    // ====== Favicon + logo rotation (JS-driven, fully synchronised) ======
+    window.dispatchEvent(new CustomEvent('goidacraft:ready'));
+
+    // ====== On-hover link prefetch (merged from prefetch.js) ======
     (function () {
-      const FAV_SRC = '/assets/img/goidalogo.png';
-      const SIZE = 64;
-      // ~0.025 rad/frame @ 60 fps ≈ 1.5 rad/s ≈ 4.2 s/revolution
-      const STEP = 0.025;
-      let rafId = null;
-      let angle = 0;
-      let logoEl = null;
+      if (!('caches' in window)) return;
+      const PAGES_CACHE = 'pages-cache-v1';
 
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.src = FAV_SRC;
-      const canvas = document.createElement('canvas');
-      canvas.width = SIZE; canvas.height = SIZE;
-      const ctx = canvas.getContext('2d');
-
-      function setFavicon(href) {
-        let link = document.querySelector('link[rel~="icon"]');
-        if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
-        link.href = href;
+      function isSlowNetwork() {
+        try {
+          const nav = navigator.connection || {};
+          if (nav.saveData) return true;
+          return /2g|slow-2g/.test(nav.effectiveType || '');
+        } catch (_) { return false; }
       }
 
-      function applyAngle(a) {
-        ctx.clearRect(0, 0, SIZE, SIZE);
-        ctx.save();
-        ctx.translate(SIZE / 2, SIZE / 2);
-        ctx.rotate(a);
-        ctx.drawImage(img, -SIZE / 2, -SIZE / 2, SIZE, SIZE);
-        ctx.restore();
-        setFavicon(canvas.toDataURL('image/png'));
-        if (logoEl) logoEl.style.transform = `rotate(${a}rad)`;
+      function sameOrigin(url) {
+        try { return new URL(url, location.href).origin === location.origin; } catch (_) { return false; }
       }
 
-      function drawFrame() {
-        angle = (angle + STEP) % (Math.PI * 2);
-        applyAngle(angle);
-        rafId = requestAnimationFrame(drawFrame);
+      async function prefetchUrl(href) {
+        if (!sameOrigin(href) || isSlowNetwork()) return;
+        try {
+          const cache = await caches.open(PAGES_CACHE);
+          const req = new Request(href, { credentials: 'same-origin' });
+          if (await cache.match(req)) return;
+          const resp = await fetch(req);
+          if (resp && resp.ok) await cache.put(req, resp.clone());
+        } catch (_) {}
       }
 
-      function startSpin() {
-        if (rafId) return;
-        if (!img.complete) { img.onload = () => { rafId = requestAnimationFrame(drawFrame); }; }
-        else { rafId = requestAnimationFrame(drawFrame); }
-      }
+      let hoverTimer = null;
+      document.addEventListener('mouseover', (e) => {
+        const a = e.target.closest && e.target.closest('a');
+        if (!a) return;
+        const href = a.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('mailto:')) return;
+        clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(() => prefetchUrl(href), 120);
+      }, { passive: true });
 
-      function pauseSpin() {
-        if (rafId) cancelAnimationFrame(rafId);
-        rafId = null;
-        // angle and both visuals stay frozen at current position
-      }
-
-      function stopSpin() {
-        if (rafId) cancelAnimationFrame(rafId);
-        rafId = null;
-        angle = 0;
-        setFavicon(FAV_SRC);
-        if (logoEl) logoEl.style.transform = '';
-      }
-
-      // Reset on Next.js client-side navigation (pushState) and browser back/forward
-      const _push = history.pushState.bind(history);
-      history.pushState = function (...args) { _push(...args); stopSpin(); };
-      window.addEventListener('popstate', stopSpin);
-
-      // Reset when switching browser tabs
-      document.addEventListener('visibilitychange', () => { if (document.hidden) stopSpin(); });
-
-      const brand = document.querySelector('.topnav-brand');
-      if (brand) {
-        logoEl = brand.querySelector('.topnav-logo');
-        if (logoEl) {
-          // Disable CSS animation — rotation is driven entirely by JS
-          logoEl.style.animation = 'none';
-          logoEl.style.transformOrigin = '50% 50%';
-        }
-
-        brand.addEventListener('mouseenter', startSpin);
-        brand.addEventListener('mouseleave', pauseSpin);
-        brand.addEventListener('focus', startSpin, true);
-        brand.addEventListener('blur', pauseSpin, true);
-        brand.addEventListener('touchstart', startSpin, { passive: true });
-        document.addEventListener('touchend', pauseSpin, { passive: true });
-
-        stopSpin(); // ensure clean initial state
-      }
+      document.addEventListener('focusin', (e) => {
+        const a = e.target.closest && e.target.closest('a');
+        if (!a) return;
+        const href = a.getAttribute('href');
+        if (href) prefetchUrl(href);
+      });
     })();
   }
 
