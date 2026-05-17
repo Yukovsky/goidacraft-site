@@ -5,7 +5,7 @@ import Link from 'next/link'
 const API_URL = 'https://api.mcsrvstat.us/2/goidacraft.aboba.host'
 let _cache = null
 let _cacheTime = 0
-const CACHE_MS = 30000
+const CACHE_MS = 300000
 
 async function fetchStatus() {
   const now = Date.now()
@@ -151,17 +151,6 @@ export default function ConnectPage() {
 
       <section className="download-section">
         <h2>Сборка модов</h2>
-        <p>Можно скачать двумя способами — вручную или авто-импортом в лаунчер.</p>
-        <div className="download-methods">
-          <article className="method-card">
-            <h3>ZIP-архив</h3>
-            <p>Ручная установка: распакуйте в профиль папки <code>resourcepacks/</code> и <code>mods/</code>.</p>
-          </article>
-          <article className="method-card">
-            <h3>.mrpack</h3>
-            <p>Для Modrinth, Prism и похожих лаунчеров. Устанавливается автоматически.</p>
-          </article>
-        </div>
         <Link href="/mods#build-variants" className="dl-btn">
           <span className="gear-host gear-spin" data-teeth="10" data-r="11" data-color="#3a1c08" data-highlight="#7a4818" />
           Скачать моды

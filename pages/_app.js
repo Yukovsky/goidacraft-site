@@ -37,14 +37,6 @@ export default function App({ Component, pageProps }) {
 
       <Component {...pageProps} />
 
-      <footer className="footer">
-        <div className="footer-orn">
-          <span className="rivet" />
-          <span>ГОЙДАКРАФТ</span>
-          <span className="rivet" />
-        </div>
-        © 2026 GOIDACRAFT. Все права защищены.
-      </footer>
     </>
   )
 }
