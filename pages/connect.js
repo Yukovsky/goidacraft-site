@@ -49,10 +49,29 @@ export default function ConnectPage() {
   return (
     <>
       <Head>
-        <title>Гойдакрафт — Подключение</title>
+        <title>Как зайти на сервер Гойдакрафт — IP, моды, инструкция | Minecraft 1.21.1</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/png" href="/assets/img/goidalogo.png" />
-        <link rel="preload" as="image" href="/assets/img/goidalogo.png" />
+        <meta name="description" content="Инструкция по подключению к серверу Гойдакрафт: IP адрес goidacraft.aboba.host, версия Minecraft 1.21.1 NeoForge, установка модов. Играй с лицензией и без!" />
+        <meta name="keywords" content="как зайти на гойдакрафт, goidacraft ip, goidacraft.aboba.host, подключение к серверу, minecraft сервер ip, goidacraft сервер адрес, как подключиться к create серверу, neoforge 1.21.1 сервер" />
+        <link rel="canonical" href="https://goidacraft.online/connect/" />
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://goidacraft.online/connect/" />
+        <meta property="og:title" content="Как подключиться к серверу Гойдакрафт" />
+        <meta property="og:description" content="IP: goidacraft.aboba.host. Minecraft 1.21.1 NeoForge. Пошаговая инструкция установки модов и подключения к серверу. С лицензией и без." />
+        <meta property="og:image" content="https://goidacraft.online/assets/img/goidalogo.png" />
+        {/* Twitter */}
+        <meta name="twitter:title" content="Как подключиться к серверу Гойдакрафт" />
+        <meta name="twitter:description" content="IP: goidacraft.aboba.host. Minecraft 1.21.1 NeoForge. Пошаговая инструкция. С лицензией и без." />
+        <meta name="twitter:image" content="https://goidacraft.online/assets/img/goidalogo.png" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Подключение к серверу Гойдакрафт",
+          "url": "https://goidacraft.online/connect/",
+          "description": "Инструкция по подключению к серверу Гойдакрафт. IP: goidacraft.aboba.host. Minecraft 1.21.1 NeoForge 21.1.228.",
+          "isPartOf": { "@type": "WebSite", "name": "Гойдакрафт", "url": "https://goidacraft.online" }
+        }) }} />
       </Head>
 
       <section className="page-head">

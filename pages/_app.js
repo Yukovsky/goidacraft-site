@@ -102,7 +102,7 @@ export default function App({ Component, pageProps }) {
       <div id="loader" ref={loaderRef}>
         <div className="loader-train-wrap">
           <div className="loader-track" aria-hidden="true" />
-          <img className="loader-train" src="/assets/img/train.png" alt="" loading="lazy" decoding="async" />
+          <img className="loader-train" src="/assets/img/train.png" alt="Загрузка сервера Гойдакрафт" loading="lazy" decoding="async" />
           <div className="steam-stack" aria-hidden="true">
             <span /><span /><span />
           </div>

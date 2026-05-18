@@ -1,0 +1,22 @@
+{
+  "name": "Гойдакрафт",
+  "short_name": "Гойдакрафт",
+  "description": "Приватный Minecraft сервер с Create: Aeronautics, Steam 'n' Rails и Farmer's Delight",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a0f05",
+  "theme_color": "#1a0f05",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "/assets/img/goidalogo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/img/goidalogo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

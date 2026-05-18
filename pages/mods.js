@@ -175,10 +175,29 @@ export default function ModsPage() {
   return (
     <>
       <Head>
-        <title>Гойдакрафт — Серверные моды</title>
+        <title>Моды сервера Гойдакрафт — Create, Aeronautics, Farmer's Delight | Minecraft 1.21.1</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/png" href="/assets/img/goidalogo.png" />
-        <link rel="preload" as="image" href="/assets/img/goidalogo.png" />
+        <meta name="description" content="Полный список модов сервера Гойдакрафт: Create, Create: Aeronautics, Steam 'n' Rails, Farmer's Delight, Let's Do и другие. Скачай сборку GOIDAbase или GOIDAslon для Minecraft 1.21.1 NeoForge." />
+        <meta name="keywords" content="моды гойдакрафт, goidacraft моды, create aeronautics мод, create mod list, minecraft mods 1.21.1, neoforge mods, farmer's delight, steam n rails, список модов сервера, goidacraft mods" />
+        <link rel="canonical" href="https://goidacraft.online/mods/" />
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://goidacraft.online/mods/" />
+        <meta property="og:title" content="Моды сервера Гойдакрафт — Create, Aeronautics и другие" />
+        <meta property="og:description" content="Полный список модов: Create, Create: Aeronautics, Steam 'n' Rails, Farmer's Delight, Let's Do. Скачай сборку для Minecraft 1.21.1 NeoForge." />
+        <meta property="og:image" content="https://goidacraft.online/assets/img/goidalogo.png" />
+        {/* Twitter */}
+        <meta name="twitter:title" content="Моды сервера Гойдакрафт — Create, Aeronautics и другие" />
+        <meta name="twitter:description" content="Полный список модов: Create, Create: Aeronautics, Steam 'n' Rails, Farmer's Delight. Сборки GOIDAbase и GOIDAslon для Minecraft 1.21.1." />
+        <meta name="twitter:image" content="https://goidacraft.online/assets/img/goidalogo.png" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Моды сервера Гойдакрафт",
+          "url": "https://goidacraft.online/mods/",
+          "description": "Полный список модов сервера Гойдакрафт для Minecraft 1.21.1 NeoForge: Create, Create: Aeronautics, Steam 'n' Rails, Farmer's Delight и другие.",
+          "isPartOf": { "@type": "WebSite", "name": "Гойдакрафт", "url": "https://goidacraft.online" }
+        }) }} />
       </Head>
 
       <section className="page-head">

@@ -23,10 +23,29 @@ export default function DonorsPage() {
   return (
     <>
       <Head>
-        <title>Гойдакрафт — Доска почёта</title>
+        <title>Доска почёта — Спонсоры и доноры сервера Гойдакрафт</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/png" href="/assets/img/goidalogo.png" />
-        <link rel="preload" as="image" href="/assets/img/goidalogo.png" />
+        <meta name="description" content="Доска почёта сервера Гойдакрафт — игроки, поддержавшие проект. Поддержи развитие Minecraft сервера с Create: Aeronautics и помоги серверу работать дольше!" />
+        <meta name="keywords" content="гойдакрафт донат, goidacraft поддержка, доноры сервера гойдакрафт, поддержать minecraft сервер" />
+        <link rel="canonical" href="https://goidacraft.online/donors/" />
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://goidacraft.online/donors/" />
+        <meta property="og:title" content="Доска почёта — Спонсоры сервера Гойдакрафт" />
+        <meta property="og:description" content="Игроки, поддержавшие сервер Гойдакрафт. Поддержи развитие Minecraft сервера с Create: Aeronautics!" />
+        <meta property="og:image" content="https://goidacraft.online/assets/img/goidalogo.png" />
+        {/* Twitter */}
+        <meta name="twitter:title" content="Доска почёта — Спонсоры сервера Гойдакрафт" />
+        <meta name="twitter:description" content="Игроки, поддержавшие сервер Гойдакрафт. Поддержи развитие Minecraft сервера с Create: Aeronautics!" />
+        <meta name="twitter:image" content="https://goidacraft.online/assets/img/goidalogo.png" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Доска почёта сервера Гойдакрафт",
+          "url": "https://goidacraft.online/donors/",
+          "description": "Список игроков, поддержавших сервер Гойдакрафт финансово.",
+          "isPartOf": { "@type": "WebSite", "name": "Гойдакрафт", "url": "https://goidacraft.online" }
+        }) }} />
       </Head>
 
       <section className="page-head">

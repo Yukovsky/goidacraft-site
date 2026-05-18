@@ -1,0 +1,33 @@
+# Гойдакрафт (GoidaCraft)
+
+> Приватный Minecraft role-play сервер с модами Create, Create: Aeronautics, Steam 'n' Rails и Farmer's Delight. Версия игры: Minecraft 1.21.1 NeoForge 21.1.228.
+
+## О проекте
+
+Гойдакрафт — частный role-play сервер для тех, кто любит строить механизмы, запускать дирижабли и исследовать мир вместе. Сервер работает на Minecraft 1.21.1 с загрузчиком NeoForge 21.1.228.
+
+Ключевые особенности:
+- Мод Create: Aeronautics — строительство летающих дирижаблей и воздушных судов
+- Мод Create — механизмы, конвейеры, шестерни, автоматизация
+- Steam 'n' Rails — разветвлённые железные дороги и локомотивы
+- Farmer's Delight — расширенная кулинария и фермерство
+- Let's Do — жизненный контент (пекарня, пивоварня, мебель, рыбалка)
+
+## Подключение
+
+- IP-адрес: goidacraft.aboba.host
+- Версия: Minecraft 1.21.1
+- Загрузчик: NeoForge 21.1.228
+- Доступно с лицензией и без
+
+## Страницы сайта
+
+- [Главная](https://goidacraft.online/) — общая информация о сервере
+- [Моды](https://goidacraft.online/mods) — полный список модов и скачивание сборки
+- [Подключение](https://goidacraft.online/connect) — инструкция по подключению, IP, сообщество
+- [Доска почёта](https://goidacraft.online/donors) — игроки, поддержавшие проект
+
+## Сообщество
+
+- Telegram-канал: https://t.me/goidacraft
+- Discord: https://discord.gg/prJwFwy5ns
