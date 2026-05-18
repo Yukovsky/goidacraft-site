@@ -49,9 +49,9 @@ export default function ConnectPage() {
   return (
     <>
       <Head>
-        <title>Как зайти на сервер Гойдакрафт — IP, моды, инструкция | Minecraft 1.21.1</title>
+        <title>Подключение к серверу Гойдакрафт — IP и инструкция</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Инструкция по подключению к серверу Гойдакрафт: IP адрес goidacraft.aboba.host, версия Minecraft 1.21.1 NeoForge, установка модов. Играй с лицензией и без!" />
+        <meta name="description" content="Как подключиться к серверу Гойдакрафт: IP goidacraft.aboba.host, Minecraft 1.21.1 NeoForge. Пошаговая инструкция установки модов. С лицензией и без." />
         <meta name="keywords" content="как зайти на гойдакрафт, goidacraft ip, goidacraft.aboba.host, подключение к серверу, minecraft сервер ip, goidacraft сервер адрес, как подключиться к create серверу, neoforge 1.21.1 сервер" />
         <link rel="canonical" href="https://goidacraft.online/connect/" />
         {/* Open Graph */}

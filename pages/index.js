@@ -19,9 +19,9 @@ export default function HomePage() {
   return (
     <>
       <Head>
-        <title>Гойдакрафт — Майнкрафт сервер с Create: Aeronautics | goidacraft.online</title>
+        <title>Гойдакрафт — Minecraft сервер с Create: Aeronautics</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Гойдакрафт — приватный Minecraft role-play сервер с модами Create, Create: Aeronautics, Steam 'n' Rails и Farmer's Delight. Дирижабли, поезда, заводы. Версия 1.21.1 NeoForge. Подключайся!" />
+        <meta name="description" content="Приватный Minecraft сервер с Create: Aeronautics, Steam 'n' Rails и Farmer's Delight. Дирижабли, поезда, заводы. Версия 1.21.1 NeoForge. IP: goidacraft.aboba.host" />
         <meta name="keywords" content="гойдакрафт, goidacraft, майнкрафт сервер, minecraft server, create aeronautics сервер, аэронафтика сервер, aeronautics server, minecraft aeronautics server, aeronautics multiplayer, сервер с create, сервер криэйт, create mod server, neoforge server, minecraft 1.21.1 server, goidacraft online" />
         <link rel="canonical" href="https://goidacraft.online/" />
         <link rel="preload" as="image" href="/assets/img/goidalogo.png" />

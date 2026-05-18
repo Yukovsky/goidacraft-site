@@ -23,9 +23,9 @@ export default function DonorsPage() {
   return (
     <>
       <Head>
-        <title>Доска почёта — Спонсоры и доноры сервера Гойдакрафт</title>
+        <title>Доска почёта — Доноры сервера Гойдакрафт</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Доска почёта сервера Гойдакрафт — игроки, поддержавшие проект. Поддержи развитие Minecraft сервера с Create: Aeronautics и помоги серверу работать дольше!" />
+        <meta name="description" content="Игроки, поддержавшие сервер Гойдакрафт. Задонать любую сумму — твоё имя появится на доске и поможет серверу с Create: Aeronautics работать дальше." />
         <meta name="keywords" content="гойдакрафт донат, goidacraft поддержка, доноры сервера гойдакрафт, поддержать minecraft сервер" />
         <link rel="canonical" href="https://goidacraft.online/donors/" />
         {/* Open Graph */}

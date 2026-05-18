@@ -175,9 +175,9 @@ export default function ModsPage() {
   return (
     <>
       <Head>
-        <title>Моды сервера Гойдакрафт — Create, Aeronautics, Farmer's Delight | Minecraft 1.21.1</title>
+        <title>Моды Гойдакрафт — Create, Aeronautics, Farmer's Delight</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Полный список модов сервера Гойдакрафт: Create, Create: Aeronautics, Steam 'n' Rails, Farmer's Delight, Let's Do и другие. Скачай сборку GOIDAbase или GOIDAslon для Minecraft 1.21.1 NeoForge." />
+        <meta name="description" content="Полный список модов сервера Гойдакрафт: Create, Aeronautics, Steam 'n' Rails, Farmer's Delight, Let's Do. Скачай сборку GOIDAbase или GOIDAslon для Minecraft 1.21.1." />
         <meta name="keywords" content="моды гойдакрафт, goidacraft моды, create aeronautics мод, create mod list, minecraft mods 1.21.1, neoforge mods, farmer's delight, steam n rails, список модов сервера, goidacraft mods" />
         <link rel="canonical" href="https://goidacraft.online/mods/" />
         {/* Open Graph */}

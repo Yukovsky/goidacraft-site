@@ -1,5 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 
+const GA_ID = 'G-K8GLPESX1J'
+
 export default function Document() {
   return (
     <Html lang="ru">
@@ -11,6 +13,9 @@ export default function Document() {
         <link rel="icon" type="image/png" href="/assets/img/goidalogo.png" />
         <link rel="apple-touch-icon" href="/assets/img/goidalogo.png" />
         <link rel="manifest" href="/manifest.json" />
+        {/* Google Analytics */}
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+        <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA_ID}');` }} />
         {/* Default OG image fallback */}
         <meta property="og:site_name" content="Гойдакрафт" />
         <meta property="og:locale" content="ru_RU" />
