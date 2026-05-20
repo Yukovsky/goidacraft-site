@@ -129,6 +129,7 @@ export default function App({ Component, pageProps }) {
             <Link href="/mods" className={`topnav-link${path === '/mods' ? ' active' : ''}`}>Моды</Link>
             <Link href="/connect" className={`topnav-link${path === '/connect' ? ' active' : ''}`}>Подключение</Link>
             <Link href="/donors" className={`topnav-link${path === '/donors' ? ' active' : ''}`}>Доноры</Link>
+            <Link href="/newspaper" className={`topnav-link${path === '/newspaper' ? ' active' : ''}`}>Газета</Link>
           </div>
         </div>
       </nav>

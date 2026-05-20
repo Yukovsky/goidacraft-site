@@ -26,6 +26,7 @@
 - [Моды](https://goidacraft.online/mods) — полный список модов и скачивание сборки
 - [Подключение](https://goidacraft.online/connect) — инструкция по подключению, IP, сообщество
 - [Доска почёта](https://goidacraft.online/donors) — игроки, поддержавшие проект
+- [Газета](https://goidacraft.online/newspaper) — архив серверной газеты, хроники событий и объявлений
 
 ## Сообщество
 

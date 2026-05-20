@@ -197,6 +197,14 @@ export default function HomePage() {
             <h3>Доска почёта</h3>
             <p>Те, кто поддержал проект финансово</p>
           </Link>
+          <Link className="ql-card" href="/newspaper">
+            <div className="ql-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2px' }}>
+              <span className="cog cog-small cog-spin ccw" style={{ width: '28px', height: '28px' }} />
+              <span className="cog cog-small cog-spin" style={{ width: '28px', height: '28px', marginLeft: '-5px' }} />
+            </div>
+            <h3>Газета</h3>
+            <p>Хроники и события на борту</p>
+          </Link>
         </div>
       </section>
     </>
