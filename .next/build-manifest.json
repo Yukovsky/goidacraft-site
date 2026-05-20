@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/afWQNVPhE2ietGVRx302i/_buildManifest.js",
-    "static/afWQNVPhE2ietGVRx302i/_ssgManifest.js"
+    "static/IQIcRalchRwfrxNOSoZFM/_buildManifest.js",
+    "static/IQIcRalchRwfrxNOSoZFM/_ssgManifest.js"
   ],
   "rootMainFiles": [],
   "pages": {
@@ -63,7 +63,7 @@
       "static/chunks/webpack-7418cad8fc7cd334.js",
       "static/chunks/framework-fae63b21a27d6472.js",
       "static/chunks/main-9e99b6d485d9a3c2.js",
-      "static/chunks/pages/newspaper-85ab08e24d748552.js"
+      "static/chunks/pages/newspaper-6f5ff7f64e7ca90f.js"
     ]
   },
   "ampFirstPages": []

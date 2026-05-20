@@ -121,7 +121,7 @@ export default function NewspaperPage() {
       <section className="page-head nwp-page-head">
         <div className="container">
           <span className="eyebrow">Гойдакрафт · Типография</span>
-          <h1>Серверная <em className="serif-italic">газета</em></h1>
+          <h1>Серверная газета</h1>
           <p>Официальный хронограф событий, объявлений и хроник на борту</p>
         </div>
         <span className="cog cog-large cog-spin" aria-hidden="true"
