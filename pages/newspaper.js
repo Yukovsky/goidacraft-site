@@ -8,6 +8,7 @@ export default function NewspaperPage() {
   const [current, setCurrent]     = useState(0)
   const [loaded, setLoaded]       = useState(false)
   const [downloading, setDl]      = useState(false)
+  const [isIOS, setIsIOS]         = useState(false)
   const issuesRef = useRef([])
   const lockRef   = useRef(false)
 
@@ -31,6 +32,10 @@ export default function NewspaperPage() {
       setDl(false)
     }
   }, [downloading])
+
+  useEffect(() => {
+    setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent) && !('MSStream' in window))
+  }, [])
 
   useEffect(() => {
     fetch(`${CDN}/manifest.json`)
@@ -199,7 +204,23 @@ export default function NewspaperPage() {
                 <span className="nwp-corner nwp-corner-bl" />
                 <span className="nwp-corner nwp-corner-br" />
 
-                {issue && (
+                {issue && (isIOS ? (
+                  <div className="nwp-ios-fallback">
+                    <span className="cog cog-large cog-spin ccw" aria-hidden="true"
+                      style={{ width: 56, height: 56, opacity: 0.18 }} />
+                    <p className="nwp-ios-text">Встроенный просмотрщик недоступен в Safari на iOS.</p>
+                    <p className="nwp-ios-sub">Откройте PDF — Safari покажет его в нативном просмотрщике с зумом и возможностью сохранить в Файлы.</p>
+                    <a
+                      href={issue.src}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="nwp-action-btn nwp-action-primary"
+                      style={{ marginTop: 8 }}
+                    >
+                      Открыть PDF ↗
+                    </a>
+                  </div>
+                ) : (
                   <iframe
                     key={current}
                     className="nwp-pdf-frame"
@@ -207,13 +228,8 @@ export default function NewspaperPage() {
                     title={`Выпуск №${issue.num} · ${issue.date}`}
                     aria-label={`Просмотр выпуска №${issue.num}`}
                     loading="eager"
-                  >
-                    {/* Fallback for browsers that don't support inline PDF */}
-                    <div className="nwp-pdf-fallback">
-                      <p>Встроенный просмотрщик PDF не поддерживается вашим браузером.</p>
-                    </div>
-                  </iframe>
-                )}
+                  />
+                ))}
               </div>
 
               <button

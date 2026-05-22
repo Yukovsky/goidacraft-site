@@ -1809,6 +1809,35 @@ html.loading #loader {
   opacity: 0.65;
 }
 
+/* iOS PDF fallback */
+.nwp-ios-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  height: clamp(320px, 55vh, 600px);
+  background: var(--paper-dark);
+  border: 1px solid var(--brass-dark);
+  text-align: center;
+  padding: 32px 24px;
+}
+.nwp-ios-text {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  margin: 0;
+}
+.nwp-ios-sub {
+  font-size: 13px;
+  color: var(--ink-soft);
+  max-width: 320px;
+  line-height: 1.55;
+  margin: 0;
+}
+
 /* Newspaper responsive */
 @media (max-width: 720px) {
   .nwp-pdf-frame { height: clamp(400px, 70vh, 700px); }
