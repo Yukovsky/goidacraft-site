@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 
-const API_URL = 'https://api.mcsrvstat.us/2/goidacraft.aboba.host'
+const API_URL = 'https://api.mcsrvstat.us/2/goidacraft.online'
 let _cache = null
 let _cacheTime = 0
 const CACHE_MS = 300000
@@ -39,7 +39,7 @@ export default function ConnectPage() {
   }, [])
 
   function handleCopy() {
-    navigator.clipboard.writeText('goidacraft.aboba.host').catch(() => {})
+    navigator.clipboard.writeText('goidacraft.online').catch(() => {})
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -51,25 +51,25 @@ export default function ConnectPage() {
       <Head>
         <title>Подключение к серверу Гойдакрафт — IP и инструкция</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Как подключиться к серверу Гойдакрафт: IP goidacraft.aboba.host, Minecraft 1.21.1 NeoForge. Пошаговая инструкция установки модов. С лицензией и без." />
-        <meta name="keywords" content="как зайти на гойдакрафт, goidacraft ip, goidacraft.aboba.host, подключение к серверу, minecraft сервер ip, goidacraft сервер адрес, как подключиться к create серверу, neoforge 1.21.1 сервер" />
+        <meta name="description" content="Как подключиться к серверу Гойдакрафт: IP goidacraft.online, Minecraft 1.21.1 NeoForge. Пошаговая инструкция установки модов. С лицензией и без." />
+        <meta name="keywords" content="как зайти на гойдакрафт, goidacraft ip, goidacraft.online, подключение к серверу, minecraft сервер ip, goidacraft сервер адрес, как подключиться к create серверу, neoforge 1.21.1 сервер" />
         <link rel="canonical" href="https://goidacraft.online/connect/" />
         {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://goidacraft.online/connect/" />
         <meta property="og:title" content="Как подключиться к серверу Гойдакрафт" />
-        <meta property="og:description" content="IP: goidacraft.aboba.host. Minecraft 1.21.1 NeoForge. Пошаговая инструкция установки модов и подключения к серверу. С лицензией и без." />
+        <meta property="og:description" content="IP: goidacraft.online. Minecraft 1.21.1 NeoForge. Пошаговая инструкция установки модов и подключения к серверу. С лицензией и без." />
         <meta property="og:image" content="https://goidacraft.online/assets/img/goidalogo.png" />
         {/* Twitter */}
         <meta name="twitter:title" content="Как подключиться к серверу Гойдакрафт" />
-        <meta name="twitter:description" content="IP: goidacraft.aboba.host. Minecraft 1.21.1 NeoForge. Пошаговая инструкция. С лицензией и без." />
+        <meta name="twitter:description" content="IP: goidacraft.online. Minecraft 1.21.1 NeoForge. Пошаговая инструкция. С лицензией и без." />
         <meta name="twitter:image" content="https://goidacraft.online/assets/img/goidalogo.png" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebPage",
           "name": "Подключение к серверу Гойдакрафт",
           "url": "https://goidacraft.online/connect/",
-          "description": "Инструкция по подключению к серверу Гойдакрафт. IP: goidacraft.aboba.host. Minecraft 1.21.1 NeoForge 21.1.228.",
+          "description": "Инструкция по подключению к серверу Гойдакрафт. IP: goidacraft.online. Minecraft 1.21.1 NeoForge 21.1.228.",
           "isPartOf": { "@type": "WebSite", "name": "Гойдакрафт", "url": "https://goidacraft.online" }
         }) }} />
       </Head>
@@ -88,7 +88,7 @@ export default function ConnectPage() {
           <div className="lbl">
             <span id="server-status" data-status={status}>{statusText}</span>
           </div>
-          <div className="ip-string">goidacraft.aboba.host</div>
+          <div className="ip-string">goidacraft.online</div>
           <button className={`copy-btn${copied ? ' copied' : ''}`} onClick={handleCopy}>
             <span className="gear-host gear-spin" data-teeth="10" data-r="9" data-color="#3a2810" data-highlight="#5a3a18" />
             <span className="btn-text">{copied ? '✓ Скопировано' : 'Скопировать адрес'}</span>
@@ -162,7 +162,7 @@ export default function ConnectPage() {
             <div className="step">
               <div className="num">04</div>
               <h3>Подключитесь к серверу</h3>
-              <p>В «Сетевой игре» добавьте <code>goidacraft.aboba.host</code>. Приятной игры!</p>
+              <p>В «Сетевой игре» добавьте <code>goidacraft.online</code>. Приятной игры!</p>
             </div>
           </div>
         </div>

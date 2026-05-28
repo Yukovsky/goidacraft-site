@@ -7,7 +7,7 @@
  */
 
 const ServerStatus = (() => {
-  const EXTERNAL_API_URL = 'https://api.mcsrvstat.us/2/goidacraft.aboba.host';
+  const EXTERNAL_API_URL = 'https://api.mcsrvstat.us/2/goidacraft.online';
   const CLIENT_CACHE_DURATION = 30000; // 30 seconds (local browser cache)
   const POLL_INTERVAL = 30000; // 30 seconds (client-side polling)
   

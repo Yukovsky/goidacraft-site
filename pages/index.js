@@ -21,7 +21,7 @@ export default function HomePage() {
       <Head>
         <title>Гойдакрафт — Minecraft сервер с Create: Aeronautics</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Приватный Minecraft сервер с Create: Aeronautics, Steam 'n' Rails и Farmer's Delight. Дирижабли, поезда, заводы. Версия 1.21.1 NeoForge. IP: goidacraft.aboba.host" />
+        <meta name="description" content="Приватный Minecraft сервер с Create: Aeronautics, Steam 'n' Rails и Farmer's Delight. Дирижабли, поезда, заводы. Версия 1.21.1 NeoForge. IP: goidacraft.online" />
         <meta name="keywords" content="гойдакрафт, goidacraft, майнкрафт сервер, minecraft server, create aeronautics сервер, аэронафтика сервер, aeronautics server, minecraft aeronautics server, aeronautics multiplayer, сервер с create, сервер криэйт, create mod server, neoforge server, minecraft 1.21.1 server, goidacraft online" />
         <link rel="canonical" href="https://goidacraft.online/" />
         <link rel="preload" as="image" href="/assets/img/goidalogo.png" />
@@ -86,7 +86,7 @@ export default function HomePage() {
       <section className="hero">
         <div className="hero-content">
           <div className="hero-text">
-            <h1 className="sr-only">Гойдакрафт — Майнкрафт сервер с Create: Aeronautics, Steam&apos;n&apos;Rails и Farmer&apos;s Delight</h1>
+            <h1 className="sr-only">Гойдакрафт Майнкрафт сервер Create Aeronautics Криэйт Аэронафтика Minecraft mine Goidacraft </h1>
             <img
               className="hero-title-mark"
               src="/assets/img/title.png"
@@ -98,8 +98,8 @@ export default function HomePage() {
             />
             <div className="hero-actions">
               <Link href="/connect" className="hero-btn">Как подключиться</Link>
-              <button className="hero-btn alt" id="hero-copy" data-ip="goidacraft.aboba.host">
-                IP: goidacraft.aboba.host
+              <button className="hero-btn alt" id="hero-copy" data-ip="goidacraft.online">
+                IP: goidacraft.online
               </button>
             </div>
           </div>
@@ -138,7 +138,7 @@ export default function HomePage() {
           </div>
           <div className="about-full">
             <p>Цель проекта — обеспечить игрокам возможность <strong>приятного времяпрепровождения</strong> через создание доброжелательного комьюнити и предоставление свободы действий, не противоречащих базовым правилам сервера и элементарным нормам морали.</p>
-            <p><strong>Гойдакрафт</strong> — это <strong>Minecraft сервер</strong> на версии <strong>1.21.1 NeoForge</strong> с акцентом на механизмы, воздухоплавание и совместное творчество. Подключение доступно с лицензией и без — IP: <strong>goidacraft.aboba.host</strong>.</p>
+            <p><strong>Гойдакрафт</strong> — это <strong>Minecraft сервер</strong> на версии <strong>1.21.1 NeoForge</strong> с акцентом на механизмы, воздухоплавание и совместное творчество. Подключение доступно с лицензией и без — IP: <strong>goidacraft.online</strong>.</p>
           </div>
 
           <div className="about-mods">

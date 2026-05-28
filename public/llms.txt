@@ -15,7 +15,7 @@
 
 ## Подключение
 
-- IP-адрес: goidacraft.aboba.host
+- IP-адрес: goidacraft.online
 - Версия: Minecraft 1.21.1
 - Загрузчик: NeoForge 21.1.228
 - Доступно с лицензией и без

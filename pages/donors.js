@@ -4,7 +4,7 @@ import Head from 'next/head'
 const DONORS_RAW = [
   { nickname: 'byteswing',        amount: 2000   },
   { nickname: 'ice3322',          amount: 1700   },
-  { nickname: 'PLYukari_Akiyama', amount: 1500   },
+  { nickname: 'PLYukari_Akiyama', amount: 3200   },
   { nickname: 'dzetsu',           amount: 567.8  },
   { nickname: 'puredistortion',   amount: 400    },
   { nickname: 'THE_MO0NS',        amount: 397    },
@@ -14,6 +14,7 @@ const DONORS_RAW = [
   { nickname: 'Sir_Trigletus',    amount: 106    },
   { nickname: 'gergobro',         amount: 79.5   },
   { nickname: 'drzvn',            amount: 1250   },
+  { nickname: 'igotnoonexdd',     amount: 240    },
 ]
 
 const DONORS = [...DONORS_RAW]

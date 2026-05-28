@@ -36,7 +36,7 @@
 
 ### Главная
 
-- Кнопка с IP сервера: `goidacraft.aboba.host`
+- Кнопка с IP сервера: `goidacraft.online`
 - Копирование адреса в буфер обмена
 - Встраиваемый YouTube-трейлер
 - Блок «О проекте» с описанием философии сервера
@@ -122,7 +122,7 @@ npm run build
 
 ## Внешние зависимости
 
-- `https://api.mcsrvstat.us/2/goidacraft.aboba.host` — статус сервера
+- `https://api.mcsrvstat.us/2/goidacraft.online` — статус сервера
 - jsDelivr — CDN, откуда загружается `manifest.json` и PDF-выпуски газеты
 - YouTube — встроенный трейлер на главной
 - Telegram / Discord — ссылки сообщества
