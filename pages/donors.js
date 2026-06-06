@@ -17,6 +17,8 @@ const DONORS_RAW = [
   { nickname: 'igotnoonexdd',     amount: 240    },
   { nickname: 'Dreemurrka',       amount: 49     },
   { nickname: 'Reanoxall',        amount: 500    },
+  { nickname: 'Archk353',         amount: 100    },
+  { nickname: 'feekse',           amount: 200    },
 ]
 
 const DONORS = [...DONORS_RAW]
