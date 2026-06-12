@@ -12,7 +12,7 @@ const DONORS_RAW = [
   { nickname: 'teramoccer',       amount: 250    },
   { nickname: 'YANASRALL228',     amount: 175.4  },
   { nickname: 'Sir_Trigletus',    amount: 106    },
-  { nickname: 'gergobro',         amount: 79.5   },
+  { nickname: 'gergobro',         amount: 215    },
   { nickname: 'drzvn',            amount: 1250   },
   { nickname: 'igotnoonexdd',     amount: 240    },
   { nickname: 'Dreemurrka',       amount: 49     },
