@@ -21,7 +21,7 @@ export default function HomePage() {
       <Head>
         <title>Гойдакрафт — Minecraft сервер с Create: Aeronautics</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Приватный Minecraft сервер с Create: Aeronautics, Steam 'n' Rails и Farmer's Delight. Дирижабли, поезда, заводы. Версия 1.21.1 NeoForge. IP: goidacraft.online" />
+        <meta name="description" content="Приватный Minecraft сервер с Create: Aeronautics, Steam 'n' Rails и Farmer's Delight. Дирижабли, поезда, заводы. Версия 1.21.1 NeoForge 21.1.233. Закрытое бета-тестирование, доступ по донату. IP: ru.goidacraft.online (СНГ), eu.goidacraft.online (ЕС)." />
         <meta name="keywords" content="гойдакрафт, goidacraft, майнкрафт сервер, minecraft server, create aeronautics сервер, аэронафтика сервер, aeronautics server, minecraft aeronautics server, aeronautics multiplayer, сервер с create, сервер криэйт, create mod server, neoforge server, minecraft 1.21.1 server, goidacraft online" />
         <link rel="canonical" href="https://goidacraft.online/" />
         <link rel="preload" as="image" href="/assets/img/goidalogo.png" />
@@ -71,11 +71,11 @@ export default function HomePage() {
           "@type": "VideoGame",
           "name": "Гойдакрафт — Minecraft сервер",
           "url": "https://goidacraft.online",
-          "description": "Приватный Minecraft role-play сервер с модами Create, Create: Aeronautics, Steam 'n' Rails, Farmer's Delight. Версия Minecraft 1.21.1, загрузчик NeoForge 21.1.228. Дирижабли, поезда, заводы.",
+          "description": "Приватный Minecraft role-play сервер с модами Create, Create: Aeronautics, Steam 'n' Rails, Farmer's Delight. Версия Minecraft 1.21.1, загрузчик NeoForge 21.1.233. Закрытое бета-тестирование, доступ по донату. Дирижабли, поезда, заводы.",
           "gamePlatform": ["PC", "Windows", "macOS", "Linux"],
           "applicationCategory": "Game",
           "operatingSystem": "Windows, macOS, Linux",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "RUB" },
+          "offers": { "@type": "Offer", "price": "167", "priceCurrency": "RUB", "url": "https://boosty.to/goidacraft", "availability": "https://schema.org/LimitedAvailability" },
           "publisher": { "@type": "Organization", "name": "Гойдакрафт", "url": "https://goidacraft.online" },
           "inLanguage": "ru",
           "keywords": "minecraft, create aeronautics, goidacraft, майнкрафт сервер, create mod, аэронафтика",
@@ -98,8 +98,8 @@ export default function HomePage() {
             />
             <div className="hero-actions">
               <Link href="/connect" className="hero-btn">Как подключиться</Link>
-              <button className="hero-btn alt" id="hero-copy" data-ip="goidacraft.online">
-                IP: goidacraft.online
+              <button className="hero-btn alt" id="hero-copy" data-ip="ru.goidacraft.online">
+                IP: ru.goidacraft.online
               </button>
             </div>
           </div>
@@ -112,7 +112,7 @@ export default function HomePage() {
           <p className="trailer-title">▸ Трейлер сервера ◂</p>
           <div className="trailer-frame">
             <iframe
-              src="https://www.youtube.com/embed/3MEuBEMHh8Q"
+              src="https://www.youtube.com/embed/QRf8RbgK350"
               title="Трейлер сервера — Гойдакрафт"
               referrerPolicy="strict-origin-when-cross-origin"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -138,7 +138,7 @@ export default function HomePage() {
           </div>
           <div className="about-full">
             <p>Цель проекта — обеспечить игрокам возможность <strong>приятного времяпрепровождения</strong> через создание доброжелательного комьюнити и предоставление свободы действий, не противоречащих базовым правилам сервера и элементарным нормам морали.</p>
-            <p><strong>Гойдакрафт</strong> — это <strong>Minecraft сервер</strong> на версии <strong>1.21.1 NeoForge</strong> с акцентом на механизмы, воздухоплавание и совместное творчество. Подключение доступно с лицензией и без — IP: <strong>goidacraft.online</strong>.</p>
+            <p><strong>Гойдакрафт</strong> — это <strong>Minecraft сервер</strong> на версии <strong>1.21.1 NeoForge</strong> с акцентом на механизмы, воздухоплавание и совместное творчество. Сейчас идёт <strong>закрытое бета-тестирование</strong>, доступ открывается донатом на <a href="https://boosty.to/goidacraft" target="_blank" rel="noopener noreferrer">Boosty</a>. Два адреса для входа: <strong>ru.goidacraft.online</strong> (СНГ) и <strong>eu.goidacraft.online</strong> (ЕС).</p>
           </div>
 
           <div className="about-mods">
