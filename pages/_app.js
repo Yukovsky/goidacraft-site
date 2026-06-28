@@ -135,6 +135,45 @@ export default function App({ Component, pageProps }) {
       </nav>
 
       <Component {...pageProps} />
+
+      <footer className="footer">
+        <div className="footer-orn">⚙ ГОЙДАКРАФТ ⚙</div>
+        <nav className="footer-social" aria-label="Социальные сети проекта">
+          <a className="footer-soc" href="https://t.me/goidacraft" target="_blank" rel="noopener noreferrer" aria-label="Telegram-канал">
+            <span className="soc-ic">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M22 4L2 11l6 3 9-6-7 8 9 6 3-18z"/>
+              </svg>
+            </span>
+            <span className="soc-cap">Канал</span>
+          </a>
+          <a className="footer-soc" href="https://discord.gg/prJwFwy5ns" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+            <span className="soc-ic">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M19.27 5.33A18.5 18.5 0 0014.7 4l-.21.46c1.49.36 2.74.97 3.94 1.83-2.07-1-4.13-1.43-6.43-1.43s-4.36.43-6.43 1.43c1.2-.86 2.45-1.47 3.94-1.83L9.3 4a18.5 18.5 0 00-4.57 1.33C2.43 8.93 1.8 12.42 2.13 15.86A18.7 18.7 0 007.84 18.7l.46-.62a12 12 0 01-1.92-.95l.4-.31c3.7 1.74 7.7 1.74 11.36 0l.4.31c-.6.36-1.24.68-1.92.95l.46.62a18.7 18.7 0 005.71-2.84c.4-3.96-.46-7.42-3.52-10.53zM8.52 13.91c-.93 0-1.7-.86-1.7-1.91s.75-1.91 1.7-1.91c.94 0 1.71.86 1.7 1.91 0 1.05-.76 1.91-1.7 1.91zm6.97 0c-.93 0-1.7-.86-1.7-1.91s.75-1.91 1.7-1.91c.94 0 1.71.86 1.7 1.91 0 1.05-.76 1.91-1.7 1.91z"/>
+              </svg>
+            </span>
+            <span className="soc-cap">Discord</span>
+          </a>
+          <a className="footer-soc" href="https://www.youtube.com/@goidacraft.online" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <span className="soc-ic">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M23 12s0-3.7-.46-5.48a2.78 2.78 0 00-1.95-1.96C18.8 4 12 4 12 4s-6.8 0-8.59.56A2.78 2.78 0 001.46 6.52C1 8.3 1 12 1 12s0 3.7.46 5.48a2.78 2.78 0 001.95 1.96C5.2 20 12 20 12 20s6.8 0 8.59-.56a2.78 2.78 0 001.95-1.96C23 15.7 23 12 23 12zM9.75 15.5v-7l6 3.5-6 3.5z"/>
+              </svg>
+            </span>
+            <span className="soc-cap">YouTube</span>
+          </a>
+          <a className="footer-soc" href="https://www.tiktok.com/@goidacraft.online" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <span className="soc-ic">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M16.5 3c.3 2.1 1.5 3.6 3.5 3.9v2.6c-1.3.1-2.5-.3-3.5-.9v5.6c0 3.2-2.6 5.8-5.8 5.8S5 17.4 5 14.2s2.6-5.8 5.8-5.8c.3 0 .5 0 .8.1v2.7c-.3-.1-.5-.1-.8-.1-1.7 0-3.1 1.4-3.1 3.1s1.4 3.1 3.1 3.1 3.1-1.4 3.1-3.1V3h2.8z"/>
+              </svg>
+            </span>
+            <span className="soc-cap">TikTok</span>
+          </a>
+        </nav>
+        <div className="footer-copy">© {new Date().getFullYear()} Гойдакрафт · Minecraft сервер с Create: Aeronautics</div>
+      </footer>
     </>
   )
 }

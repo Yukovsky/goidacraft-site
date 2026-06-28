@@ -302,7 +302,7 @@ export default function ConnectPage() {
       <section className="download-section">
         <h2>Сборка модов</h2>
         <Link href="/mods#build-variants" className="dl-btn">
-          <span className="gear-host gear-spin" data-teeth="10" data-r="11" data-color="#3a1c08" data-highlight="#7a4818" />
+          <span className="gear-host gear-spin" data-teeth="10" data-r="11" data-color="#3a2810" data-highlight="#5a3a18" />
           Скачать моды
         </Link>
       </section>
