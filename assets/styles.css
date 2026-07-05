@@ -1526,6 +1526,41 @@ html.loading #loader {
 .plaque.top-tier { background: linear-gradient(180deg, #ffe8a8 0%, #e8c878 30%, #c89b3c 60%, #8a6a1f 90%); }
 .plaque.top-tier .name { font-size: 23px; }
 .plaque.top-tier .crown { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); font-size: 20px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+.wall-title .ribbon-copper { background: linear-gradient(180deg, var(--copper-light), var(--copper-dark)); border-color: #3a1f08; }
+.wall-title .ribbon-copper::before, .wall-title .ribbon-copper::after { background: var(--copper-dark); }
+
+.wall-title .ribbon-silver { background: linear-gradient(180deg, #e4e8ec, #8a939c); color: #1a1e22; border-color: #5a6268; }
+.wall-title .ribbon-silver::before, .wall-title .ribbon-silver::after { background: #8a939c; }
+
+.wall.top-leaders,
+.wall.donors-wall,
+.wall.masters-wall { padding-top: 44px; padding-bottom: 44px; border-bottom: none; }
+.wall.masters-wall { border-bottom: 4px solid var(--wood-dark); }
+.wall.top-leaders .wall-title,
+.wall.donors-wall .wall-title,
+.wall.masters-wall .wall-title { margin-bottom: 28px; }
+
+.leaderboard { display: flex; flex-direction: column; gap: 14px; max-width: 720px; margin: 0 auto; }
+.leaderboard-row { display: flex; justify-content: center; gap: 14px; }
+.leaderboard-row .plaque { width: clamp(160px, var(--leader-w, 200px), 100%); flex: 0 0 auto; min-width: 0; box-sizing: border-box; margin: 0; }
+
+.plaque.leader-plaque {
+  background: linear-gradient(180deg, #f4fdff 0%, #cdf0fb 25%, #5fc2e8 60%, #cdf0fb 90%);
+  color: #0b3550;
+  box-shadow: inset 0 0 0 2px #4fa8d4, inset 0 -4px 8px rgba(10,50,70,0.25), inset 0 3px 6px rgba(255,255,255,0.7), 0 8px 14px rgba(0,20,40,0.5), 0 14px 24px rgba(0,10,30,0.35);
+}
+.plaque.leader-plaque:hover { box-shadow: inset 0 0 0 2px #4fa8d4, inset 0 -4px 8px rgba(10,50,70,0.25), inset 0 3px 6px rgba(255,255,255,0.8), 0 14px 24px rgba(0,20,40,0.6), 0 22px 38px rgba(0,10,30,0.4); }
+.plaque.leader-plaque .name { color: #0b3550; border-bottom-color: rgba(11,53,80,0.35); text-shadow: 0 1px 0 rgba(255,255,255,0.65), 0 -1px 0 rgba(10,50,70,0.15); }
+.plaque.leader-plaque .role { color: #1c5570; }
+.plaque.leader-plaque .ord { color: #1c5570; opacity: 0.6; }
+.plaque.leader-plaque.rank-1 { background: linear-gradient(180deg, #ffffff 0%, #e2f8ff 30%, #7fd4f2 60%, #e2f8ff 90%); }
+.plaque.leader-plaque.rank-1 .name { font-size: 23px; }
+.plaque.leader-plaque .crown { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); font-size: 20px; color: #eaf9ff; filter: drop-shadow(0 2px 4px rgba(0,40,60,0.5)); }
+
+.plaque.master-plaque { background: linear-gradient(180deg, #e6b078 0%, var(--copper) 25%, var(--copper-dark) 60%, var(--copper) 90%); }
+.plaque.master-plaque .name { border-bottom-color: rgba(58,31,8,0.5); }
+.plaque.master-plaque .gear-badge { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); font-size: 20px; color: var(--copper-light); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+
 .thank-you { margin-top: 60px; background: var(--paper); padding: 60px 40px; text-align: center; border: 3px solid var(--copper-dark); position: relative; max-width: 900px; margin-left: auto; margin-right: auto; }
 .thank-you::before, .thank-you::after { content: ''; position: absolute; width: 24px; height: 24px; border: 3px solid var(--copper-dark); }
 .thank-you::before { top: -3px; left: -3px; border-right: none; border-bottom: none; }

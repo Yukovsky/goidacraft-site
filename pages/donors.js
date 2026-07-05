@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
+
+// Цена месяца подписки "Мастер Гойды" на Boosty — правь только здесь
+const BOOSTY_MONTH_PRICE = 567
 
 const DONORS_RAW = [
   { nickname: 'byteswing',        amount: 2000   },
@@ -23,11 +26,66 @@ const DONORS_RAW = [
   { nickname: 'kRe3k0_Solos',     amount: 629    },
 ]
 
+// Подписчики Boosty-тарифа "Мастер Гойды" (567 ₽/мес) — длительность в месяцах
+const MASTERS_RAW = [
+  { nickname: 'TonaPoTa69', months: 1 },
+]
+
 const DONORS = [...DONORS_RAW]
   .filter(d => d.nickname && d.amount > 0)
   .sort((a, b) => b.amount - a.amount)
 
+const MASTERS = [...MASTERS_RAW]
+  .filter(m => m.nickname && m.months > 0)
+  .map(m => ({ ...m, amount: m.months * BOOSTY_MONTH_PRICE }))
+  .sort((a, b) => b.months - a.months)
+
+const TOP_DONORS = [
+  ...DONORS.map(d => ({ nickname: d.nickname, amount: d.amount, kind: 'donor' })),
+  ...MASTERS.map(m => ({ nickname: m.nickname, amount: m.amount, kind: 'master' })),
+]
+  .sort((a, b) => b.amount - a.amount)
+  .slice(0, 5)
+
+const LONGEST_TOP_NICKNAME_LEN = Math.max(...TOP_DONORS.map(d => d.nickname.length))
+const FALLBACK_LEADER_WIDTH = `calc(${LONGEST_TOP_NICKNAME_LEN}ch + 56px)`
+const LEADER_CARD_PADDING = 56 // 2 * 16px карточки + запас
+
+function measureLeaderWidth() {
+  const canvas = document.createElement('canvas')
+  const ctx = canvas.getContext('2d')
+  let maxTextWidth = 0
+  TOP_DONORS.forEach((d, i) => {
+    // ранг 1 отображается крупнее и жирнее — учитываем это при замере
+    ctx.font = i === 0 ? "700 23px Steamwreck, Montserrat, serif" : "700 20px Steamwreck, Montserrat, serif"
+    const w = ctx.measureText(d.nickname).width
+    if (w > maxTextWidth) maxTextWidth = w
+  })
+  return Math.ceil(maxTextWidth) + LEADER_CARD_PADDING
+}
+
+function pluralMonths(n) {
+  const n10 = n % 10, n100 = n % 100
+  if (n100 >= 11 && n100 <= 14) return 'месяцев'
+  if (n10 === 1) return 'месяц'
+  if (n10 >= 2 && n10 <= 4) return 'месяца'
+  return 'месяцев'
+}
+
 export default function DonorsPage() {
+  const [leaderWidth, setLeaderWidth] = useState(FALLBACK_LEADER_WIDTH)
+
+  useEffect(() => {
+    let cancelled = false
+    const apply = () => { if (!cancelled) setLeaderWidth(`${measureLeaderWidth()}px`) }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(apply)
+    } else {
+      apply()
+    }
+    return () => { cancelled = true }
+  }, [])
+
   return (
     <>
       <Head>
@@ -63,23 +121,42 @@ export default function DonorsPage() {
         <p>Те, благодаря кому работают серверные двигатели</p>
       </section>
 
-      <section className="wall">
-        <svg className="wall-lamp" width="120" height="100" viewBox="0 0 120 100">
-          <line x1="60" y1="0" x2="60" y2="20" stroke="#3a2810" strokeWidth="2"/>
-          <ellipse cx="60" cy="22" rx="14" ry="4" fill="#8a6a1f" stroke="#3a2810" strokeWidth="1.5"/>
-          <path d="M 35 28 L 85 28 L 78 70 L 42 70 Z" fill="url(#lampShade)" stroke="#3a2810" strokeWidth="2"/>
-          <ellipse cx="60" cy="78" rx="20" ry="4" fill="#c89b3c" stroke="#3a2810" strokeWidth="1.5"/>
-          <defs>
-            <linearGradient id="lampShade" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#c89b3c"/>
-              <stop offset="100%" stopColor="#8a6a1f"/>
-            </linearGradient>
-          </defs>
-        </svg>
-
+      <section className="wall top-leaders">
         <div className="wall-inner">
           <div className="wall-title">
-            <div className="ribbon">— Спасибо за поддержку —</div>
+            <div className="ribbon">— Топ поддержавших —</div>
+            <p>Пятёрка тех, кто вложил в паровые машины сервера больше всех — донатом или подпиской «Мастер Гойды».</p>
+          </div>
+
+          <div className="leaderboard" style={{ '--leader-w': leaderWidth }}>
+            {[TOP_DONORS.slice(0, 3), TOP_DONORS.slice(3, 5)].filter(row => row.length > 0).map((row, ri) => (
+              <div key={ri} className="leaderboard-row">
+                {row.map((d, i) => {
+                  const rank = ri * 3 + i + 1
+                  return (
+                    <div
+                      key={d.nickname}
+                      className={`plaque leader-plaque rank-${rank}`}
+                      style={{ '--rot': `${((rank - 1) % 5 - 2) * 0.6}deg` }}
+                    >
+                      <div className="ord">№ {String(rank).padStart(2, '0')}</div>
+                      {rank === 1 && <div className="crown">★</div>}
+                      <div className="name">{d.nickname}</div>
+                      <div className="role">{d.kind === 'master' ? 'Мастер Гойды' : 'Донатер'}</div>
+                      <span className="pr-tl" /><span className="pr-tr" />
+                    </div>
+                  )
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="wall donors-wall">
+        <div className="wall-inner">
+          <div className="wall-title">
+            <div className="ribbon ribbon-silver">— Донатеры —</div>
             <p>Ваш вклад идёт на оплату хостинга, домена и развитие сервера. Каждое имя на этой стене — это часовой работы парового двигателя.</p>
           </div>
 
@@ -104,17 +181,48 @@ export default function DonorsPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="wall masters-wall">
+        <div className="wall-inner">
+          <div className="wall-title">
+            <div className="ribbon ribbon-copper">— Мастера Гойды —</div>
+            <p>Те, кто оформил подписку «Мастер Гойды» на Boosty и держит паровой котёл сервера под давлением на постоянной основе.</p>
+          </div>
+
+          <div className="plaques">
+            {MASTERS.length === 0 ? (
+              <div className="plaque master-plaque" style={{ '--rot': '0deg' }}>
+                <div className="name">Список пока пуст</div>
+                <div className="role">Оформите подписку на Boosty, чтобы появиться здесь!</div>
+                <span className="pr-tl" /><span className="pr-tr" />
+              </div>
+            ) : MASTERS.map((m, i) => (
+              <div
+                key={m.nickname}
+                className="plaque master-plaque"
+                style={{ '--rot': `${((i % 5) - 2) * 0.6}deg` }}
+              >
+                <div className="ord">№ {String(i + 1).padStart(2, '0')}</div>
+                <div className="gear-badge">⚙</div>
+                <div className="name">{m.nickname}</div>
+                <div className="role">{m.months} {pluralMonths(m.months)} поддержки</div>
+                <span className="pr-tl" /><span className="pr-tr" />
+              </div>
+            ))}
+          </div>
 
           <div className="thank-you">
             <h3>Каждый дирижабль в небе летит на вашем угле.</h3>
-            <p>Гойдакрафт развивается силами сообщества. Все средства идут только на хостинг, домен и поддержку сервера. Огромное спасибо каждому, кто помогает проекту оставаться на плаву.</p>
+            <p>Гойдакрафт развивается силами сообщества. Огромная часть средств сообщества идут на обеспечение сервера. Огромное спасибо каждому, кто помогает проекту оставаться на плаву.</p>
           </div>
 
           <div className="donation-appeal">
             <h3>Как попасть на доску почёта</h3>
-            <p>Оказаться на этой стене можно двумя способами:</p>
+            <p>Оказаться на этих стенах можно двумя способами:</p>
             <ul className="appeal-ways">
-              <li><strong>Расширенный доступ (567 ₽)</strong> — особое место на доске, а также имя в ролике на YouTube, тикеты вне очереди и именной значок рядом с ником в игре.</li>
+              <li><strong>Подписка «Мастер Гойды»</strong> на Boosty — особое место для «Мастеров Гойды», а также имя в ролике на YouTube, тикеты вне очереди и именной значок рядом с ником в игре.</li>
               <li><strong>Любой безвозмездный донат</strong> на нашем Boosty — добровольное пожертвование на развитие сервера. Речь именно о безвозмездном донате, а не о покупке доступа к посту, базовой подписки или «1 + 1».</li>
             </ul>
             <p>Поддержать проект можно на <a href="https://boosty.to/goidacraft" target="_blank" rel="noopener noreferrer">Boosty</a>. Подробнее о тарифах доступа — на странице <a href="/connect#access">подключения</a>.</p>
