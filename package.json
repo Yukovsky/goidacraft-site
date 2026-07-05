@@ -11,7 +11,7 @@
   },
   "keywords": ["minecraft", "server", "майнкрафт", "create", "create: aeronautics", "криэйт", "аэронафтика"],
   "author": "KISSASSES",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "dependencies": {
     "next": "^13.4.8",
     "react": "^18.2.0",
