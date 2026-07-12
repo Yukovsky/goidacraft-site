@@ -43,6 +43,3 @@ pids/
 /.pnp
 .pnp.js
 .pnpm-debug.log
-
-.claude/
-.playwright-mcp/
