@@ -119,7 +119,7 @@ export default function App({ Component, pageProps }) {
               src="/assets/img/goidalogo.png"
               alt="Логотип Гойдакрафт"
               loading="eager"
-              fetchPriority="high"
+              fetchpriority="high"
               decoding="async"
             />
             ГОЙДАКРАФТ

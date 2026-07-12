@@ -92,7 +92,7 @@ export default function HomePage() {
               src="/assets/img/title.png"
               alt="Гойдакрафт — Minecraft сервер"
               loading="eager"
-              fetchPriority="high"
+              fetchpriority="high"
               decoding="async"
               aria-hidden="true"
             />
