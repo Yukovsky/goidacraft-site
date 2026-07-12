@@ -51,6 +51,8 @@ const LONGEST_TOP_NICKNAME_LEN = Math.max(...TOP_DONORS.map(d => d.nickname.leng
 const FALLBACK_LEADER_WIDTH = `calc(${LONGEST_TOP_NICKNAME_LEN}ch + 56px)`
 const LEADER_CARD_PADDING = 56 // 2 * 16px карточки + запас
 
+const ALL_NICKNAMES = [...new Set([...TOP_DONORS, ...MASTERS, ...DONORS].map(d => d.nickname))]
+
 function measureLeaderWidth() {
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
@@ -64,6 +66,18 @@ function measureLeaderWidth() {
   return Math.ceil(maxTextWidth) + LEADER_CARD_PADDING
 }
 
+// Ширина ника при font-size 1px (текст + letter-spacing 0.02em из .plaque .name).
+// CSS ужимает шрифт до min(базовый, 100cqi / --name-r) — ник всегда в одну строку и всегда внутри карточки.
+function measureNameRatios() {
+  const ctx = document.createElement('canvas').getContext('2d')
+  ctx.font = '700 100px Steamwreck, Montserrat, serif'
+  const out = {}
+  ALL_NICKNAMES.forEach(n => {
+    out[n] = +(ctx.measureText(n).width / 100 + 0.02 * n.length).toFixed(4)
+  })
+  return out
+}
+
 function pluralMonths(n) {
   const n10 = n % 10, n100 = n % 100
   if (n100 >= 11 && n100 <= 14) return 'месяцев'
@@ -74,10 +88,15 @@ function pluralMonths(n) {
 
 export default function DonorsPage() {
   const [leaderWidth, setLeaderWidth] = useState(FALLBACK_LEADER_WIDTH)
+  const [nameRatios, setNameRatios] = useState({})
 
   useEffect(() => {
     let cancelled = false
-    const apply = () => { if (!cancelled) setLeaderWidth(`${measureLeaderWidth()}px`) }
+    const apply = () => {
+      if (cancelled) return
+      setLeaderWidth(`${measureLeaderWidth()}px`)
+      setNameRatios(measureNameRatios())
+    }
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(apply)
     } else {
@@ -128,28 +147,57 @@ export default function DonorsPage() {
             <p>Пятёрка тех, кто вложил в паровые машины сервера больше всех — донатом или подпиской «Мастер Гойды».</p>
           </div>
 
+          {/* один flex-wrap ряд: 5 карточек равной ширины ложатся как 3+2, 2+2+1 или по одной — по факту нехватки места */}
           <div className="leaderboard" style={{ '--leader-w': leaderWidth }}>
-            {[TOP_DONORS.slice(0, 3), TOP_DONORS.slice(3, 5)].filter(row => row.length > 0).map((row, ri) => (
-              <div key={ri} className="leaderboard-row">
-                {row.map((d, i) => {
-                  const rank = ri * 3 + i + 1
-                  return (
-                    <div
-                      key={d.nickname}
-                      className={`plaque leader-plaque rank-${rank}`}
-                      style={{ '--rot': `${((rank - 1) % 5 - 2) * 0.6}deg` }}
-                    >
-                      <div className="ord">№ {String(rank).padStart(2, '0')}</div>
-                      {rank === 1 && <div className="crown">★</div>}
-                      <div className="name">{d.nickname}</div>
-                      <div className="role">{d.kind === 'master' ? 'Мастер Гойды' : 'Донатер'}</div>
-                      <span className="pr-tl" /><span className="pr-tr" />
-                    </div>
-                  )
-                })}
+            {TOP_DONORS.map((d, i) => {
+              const rank = i + 1
+              return (
+                <div
+                  key={d.nickname}
+                  className={`plaque leader-plaque rank-${rank}`}
+                  style={{ '--rot': `${((rank - 1) % 5 - 2) * 0.6}deg` }}
+                >
+                  <div className="ord">№ {String(rank).padStart(2, '0')}</div>
+                  {rank === 1 && <div className="crown">★</div>}
+                  <div className="name" style={{ '--name-r': nameRatios[d.nickname] }}>{d.nickname}</div>
+                  <div className="role">{d.kind === 'master' ? 'Мастер Гойды' : 'Донатер'}</div>
+                  <span className="pr-tl" /><span className="pr-tr" />
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="wall masters-wall">
+        <div className="wall-inner">
+          <div className="wall-title">
+            <div className="ribbon ribbon-gold">— Мастера Гойды —</div>
+            <p>Те, кто оформил подписку «Мастер Гойды» на Boosty и держит паровой котёл сервера под давлением на постоянной основе.</p>
+          </div>
+
+          <div className="plaques">
+            {MASTERS.length === 0 ? (
+              <div className="plaque master-plaque" style={{ '--rot': '0deg' }}>
+                <div className="name">Список пока пуст</div>
+                <div className="role">Оформите подписку на Boosty, чтобы появиться здесь!</div>
+                <span className="pr-tl" /><span className="pr-tr" />
+              </div>
+            ) : MASTERS.map((m, i) => (
+              <div
+                key={m.nickname}
+                className="plaque master-plaque"
+                style={{ '--rot': `${((i % 5) - 2) * 0.6}deg` }}
+              >
+                <div className="ord">№ {String(i + 1).padStart(2, '0')}</div>
+                <div className="gear-badge">⚙</div>
+                <div className="name" style={{ '--name-r': nameRatios[m.nickname] }}>{m.nickname}</div>
+                <div className="role">{m.months} {pluralMonths(m.months)} поддержки</div>
+                <span className="pr-tl" /><span className="pr-tr" />
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
@@ -175,39 +223,8 @@ export default function DonorsPage() {
               >
                 <div className="ord">№ {String(i + 1).padStart(2, '0')}</div>
                 {d.amount >= 1000 && <div className="crown">★</div>}
-                <div className="name">{d.nickname}</div>
+                <div className="name" style={{ '--name-r': nameRatios[d.nickname] }}>{d.nickname}</div>
                 <div className="role">поддержал проект</div>
-                <span className="pr-tl" /><span className="pr-tr" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="wall masters-wall">
-        <div className="wall-inner">
-          <div className="wall-title">
-            <div className="ribbon ribbon-copper">— Мастера Гойды —</div>
-            <p>Те, кто оформил подписку «Мастер Гойды» на Boosty и держит паровой котёл сервера под давлением на постоянной основе.</p>
-          </div>
-
-          <div className="plaques">
-            {MASTERS.length === 0 ? (
-              <div className="plaque master-plaque" style={{ '--rot': '0deg' }}>
-                <div className="name">Список пока пуст</div>
-                <div className="role">Оформите подписку на Boosty, чтобы появиться здесь!</div>
-                <span className="pr-tl" /><span className="pr-tr" />
-              </div>
-            ) : MASTERS.map((m, i) => (
-              <div
-                key={m.nickname}
-                className="plaque master-plaque"
-                style={{ '--rot': `${((i % 5) - 2) * 0.6}deg` }}
-              >
-                <div className="ord">№ {String(i + 1).padStart(2, '0')}</div>
-                <div className="gear-badge">⚙</div>
-                <div className="name">{m.nickname}</div>
-                <div className="role">{m.months} {pluralMonths(m.months)} поддержки</div>
                 <span className="pr-tl" /><span className="pr-tr" />
               </div>
             ))}

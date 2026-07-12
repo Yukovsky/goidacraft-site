@@ -711,10 +711,10 @@ h1, h2, h3 {
   }
 
   body .plaque .name {
-    font-size: 18px;
+    font-size: min(18px, calc(100cqi / var(--name-r, 0.001)));
   }
   body .plaque.top-tier .name {
-    font-size: 20px;
+    font-size: min(20px, calc(100cqi / var(--name-r, 0.001)));
   }
 }
 
@@ -1509,6 +1509,7 @@ html.loading #loader {
 .plaques { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 28px; }
 .plaque {
   position: relative;
+  container-type: inline-size; /* даёт 100cqi = внутренняя ширина карточки для масштабирования ника */
   background: linear-gradient(180deg, #f0d68a 0%, var(--brass) 25%, var(--brass-dark) 60%, var(--brass) 90%);
   padding: 22px 24px 20px; color: #1a0e05; border-radius: 4px;
   box-shadow: inset 0 0 0 2px var(--brass-dark), inset 0 -4px 8px rgba(0,0,0,0.3), inset 0 3px 6px rgba(255,230,160,0.5), 0 8px 14px rgba(0,0,0,0.6), 0 14px 24px rgba(0,0,0,0.4);
@@ -1520,14 +1521,15 @@ html.loading #loader {
 .plaque::after { top: 8px; right: 8px; }
 .plaque > .pr-tl { bottom: 8px; left: 8px; }
 .plaque > .pr-tr { bottom: 8px; right: 8px; }
-.plaque .name { font-family: var(--f-display); font-size: 20px; font-weight: 700; margin: 6px 0 10px; text-align: center; text-shadow: 0 1px 0 rgba(255,230,160,0.5), 0 -1px 0 rgba(0,0,0,0.2); letter-spacing: 0.02em; border-bottom: 1px solid rgba(58,28,8,0.5); padding-bottom: 8px; }
+/* --name-r: ширина ника при шрифте 1px (ставится из JS). Ник всегда в одну строку: если не влезает — шрифт ужимается до ширины карточки. */
+.plaque .name { font-family: var(--f-display); font-size: min(20px, calc(100cqi / var(--name-r, 0.001))); white-space: nowrap; font-weight: 700; margin: 6px 0 10px; text-align: center; text-shadow: 0 1px 0 rgba(255,230,160,0.5), 0 -1px 0 rgba(0,0,0,0.2); letter-spacing: 0.02em; border-bottom: 1px solid rgba(58,28,8,0.5); padding-bottom: 8px; }
 .plaque .role { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #4a2810; text-align: center; margin: 0; }
 .plaque .ord { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); font-family: var(--f-mono); font-size: 8px; letter-spacing: 0.4em; color: #4a2810; opacity: 0.55; text-transform: uppercase; }
 .plaque.top-tier { background: linear-gradient(180deg, #ffe8a8 0%, #e8c878 30%, #c89b3c 60%, #8a6a1f 90%); }
-.plaque.top-tier .name { font-size: 23px; }
+.plaque.top-tier .name { font-size: min(23px, calc(100cqi / var(--name-r, 0.001))); }
 .plaque.top-tier .crown { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); font-size: 20px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
-.wall-title .ribbon-copper { background: linear-gradient(180deg, var(--copper-light), var(--copper-dark)); border-color: #3a1f08; }
-.wall-title .ribbon-copper::before, .wall-title .ribbon-copper::after { background: var(--copper-dark); }
+.wall-title .ribbon-gold { background: linear-gradient(180deg, #f0d68a, #8a6a1f); color: #2a1808; border-color: #5a4010; }
+.wall-title .ribbon-gold::before, .wall-title .ribbon-gold::after { background: #8a6a1f; }
 
 .wall-title .ribbon-silver { background: linear-gradient(180deg, #e4e8ec, #8a939c); color: #1a1e22; border-color: #5a6268; }
 .wall-title .ribbon-silver::before, .wall-title .ribbon-silver::after { background: #8a939c; }
@@ -1535,14 +1537,15 @@ html.loading #loader {
 .wall.top-leaders,
 .wall.donors-wall,
 .wall.masters-wall { padding-top: 44px; padding-bottom: 44px; border-bottom: none; }
-.wall.masters-wall { border-bottom: 4px solid var(--wood-dark); }
+.wall.donors-wall { border-bottom: 4px solid var(--wood-dark); }
 .wall.top-leaders .wall-title,
 .wall.donors-wall .wall-title,
 .wall.masters-wall .wall-title { margin-bottom: 28px; }
 
-.leaderboard { display: flex; flex-direction: column; gap: 14px; max-width: 720px; margin: 0 auto; }
-.leaderboard-row { display: flex; justify-content: center; gap: 14px; }
-.leaderboard-row .plaque { width: clamp(160px, var(--leader-w, 200px), 100%); flex: 0 0 auto; min-width: 0; box-sizing: border-box; margin: 0; }
+/* 5 карточек в одном wrap-ряду: сколько влезает по ширине — 3+2, 2+2+1 или 1+1+1+1+1 */
+/* ширина = ровно 3 карточки + 2 гэпа: больше трёх в ряд не встанет, меньше — только если реально не хватает места */
+.leaderboard { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; max-width: calc(var(--leader-w, 200px) * 3 + 29px); margin: 0 auto; }
+.leaderboard .plaque { width: min(var(--leader-w, 200px), 100%); flex: 0 0 auto; min-width: 0; box-sizing: border-box; margin: 0; }
 
 .plaque.leader-plaque {
   background: linear-gradient(180deg, #f4fdff 0%, #cdf0fb 25%, #5fc2e8 60%, #cdf0fb 90%);
@@ -1554,12 +1557,24 @@ html.loading #loader {
 .plaque.leader-plaque .role { color: #1c5570; }
 .plaque.leader-plaque .ord { color: #1c5570; opacity: 0.6; }
 .plaque.leader-plaque.rank-1 { background: linear-gradient(180deg, #ffffff 0%, #e2f8ff 30%, #7fd4f2 60%, #e2f8ff 90%); }
-.plaque.leader-plaque.rank-1 .name { font-size: 23px; }
+.plaque.leader-plaque.rank-1 .name { font-size: min(23px, calc(100cqi / var(--name-r, 0.001))); }
 .plaque.leader-plaque .crown { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); font-size: 20px; color: #eaf9ff; filter: drop-shadow(0 2px 4px rgba(0,40,60,0.5)); }
 
-.plaque.master-plaque { background: linear-gradient(180deg, #e6b078 0%, var(--copper) 25%, var(--copper-dark) 60%, var(--copper) 90%); }
+.plaque.master-plaque { background: linear-gradient(180deg, #ffe8a8 0%, #e8c878 30%, #c89b3c 60%, #8a6a1f 90%); }
 .plaque.master-plaque .name { border-bottom-color: rgba(58,31,8,0.5); }
-.plaque.master-plaque .gear-badge { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); font-size: 20px; color: var(--copper-light); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+.plaque.master-plaque .gear-badge { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); font-size: 20px; color: #6a4a10; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+
+.donors-wall .plaque {
+  background: linear-gradient(180deg, #eef1f4 0%, #cfd6dc 25%, #9aa3ac 60%, #cfd6dc 90%);
+  box-shadow: inset 0 0 0 2px #7a828a, inset 0 -4px 8px rgba(0,0,0,0.25), inset 0 3px 6px rgba(255,255,255,0.5), 0 8px 14px rgba(0,0,0,0.5), 0 14px 24px rgba(0,0,0,0.35);
+}
+.donors-wall .plaque:hover { box-shadow: inset 0 0 0 2px #7a828a, inset 0 -4px 8px rgba(0,0,0,0.25), inset 0 3px 6px rgba(255,255,255,0.6), 0 14px 24px rgba(0,0,0,0.6), 0 22px 38px rgba(0,0,0,0.4); }
+.donors-wall .plaque .name { border-bottom-color: rgba(26,30,34,0.35); }
+.donors-wall .plaque .role, .donors-wall .plaque .ord { color: #3a4046; }
+.donors-wall .plaque::before, .donors-wall .plaque::after, .donors-wall .plaque > .pr-tl, .donors-wall .plaque > .pr-tr {
+  background-image: linear-gradient(90deg, transparent 45%, #1a1e22 45%, #1a1e22 55%, transparent 55%), radial-gradient(circle at 35% 30%, #9aa3ac, #4a4f54 70%, #1a1e22);
+}
+.donors-wall .plaque.top-tier { background: linear-gradient(180deg, #ffffff 0%, #e4e9ed 30%, #aab3bc 60%, #7a828a 90%); }
 
 .thank-you { margin-top: 60px; background: var(--paper); padding: 60px 40px; text-align: center; border: 3px solid var(--copper-dark); position: relative; max-width: 900px; margin-left: auto; margin-right: auto; }
 .thank-you::before, .thank-you::after { content: ''; position: absolute; width: 24px; height: 24px; border: 3px solid var(--copper-dark); }
