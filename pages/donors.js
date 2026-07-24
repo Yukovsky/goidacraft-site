@@ -30,6 +30,8 @@ const DONORS_RAW = [
 const MASTERS_RAW = [
   { nickname: 'TonaPoTa69', months: 1 },
   { nickname: 'Sir_CarBone_Jr', months: 1 },
+  { nickname: 'Dagestania91', months: 1 },
+  
   
 ]
 
