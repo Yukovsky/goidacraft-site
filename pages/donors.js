@@ -28,11 +28,10 @@ const DONORS_RAW = [
 
 // Подписчики Boosty-тарифа "Мастер Гойды" (567 ₽/мес) — длительность в месяцах
 const MASTERS_RAW = [
-  { nickname: 'TonaPoTa69', months: 1 },
+  { nickname: 'TonaPoTa69', months: 2 },
   { nickname: 'Sir_CarBone_Jr', months: 1 },
   { nickname: 'Dagestania91', months: 1 },
-  
-  
+  { nickname: 'NPZ_D3ZTR0Y3', months: 1 },
 ]
 
 const DONORS = [...DONORS_RAW]
