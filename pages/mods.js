@@ -91,7 +91,7 @@ const RAW = [
   ['create-addons', "Create: Central Kitchen", "Аддон Create для автоматизации готовки: интеграция кастрюль, скилетов и разделочных досок с механической рукой и упаковщиком."],
   ['create-addons', "Create: Enchantment Industry", "Аддон Create для автоматизации опыта и зачарований: жидкий опыт, механический точильный камень, блейз-зачарователь."],
   ['create-addons', "Create Aeronautics: Toolgun", "Инструмент-пушка для Create Aeronautics: сохранение, печать и перетаскивание физических конструкций, аналог гравипушки."],
-  ['create-addons', "Create: Broken Bad", "Аддон Create в духе Breaking Bad — производство и продажа химических веществ через механизмы Create."],
+  ['create-deco', "Create: Blocks and Boggies", "Аддон Create с дополнительными декоративными блоками и мелкими деталями для строительства и оформления фабрик."],
   ['create-deco', "Create: Connected", "Аддон Create с QoL-блоками, которых не хватало в базовом моде."],
   ['create-addons', "Create Radars: Mobile Radars", "Портативные радары для Create: Radars — планшет с HUD и очки-радар для аддона слежения и наведения оружия."],
   ['world', "Create: Rustic Structures", "Аддон для Create, добавляющий в мир генерируемые постройки в деревенском стиле — колодцы, мельницы, кузницы и амбары."],
