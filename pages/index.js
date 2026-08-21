@@ -21,7 +21,7 @@ export default function HomePage() {
       <Head>
         <title>Гойдакрафт — Minecraft сервер с Create: Aeronautics</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Приватный Minecraft сервер с Create: Aeronautics, Steam 'n' Rails и Farmer's Delight. Дирижабли, поезда, заводы. Версия 1.21.1 NeoForge 21.1.233. Закрытое бета-тестирование, доступ по донату. IP: ru.goidacraft.online (СНГ), eu.goidacraft.online (ЕС)." />
+        <meta name="description" content="Приватный Minecraft сервер с Create: Aeronautics, Railways и Farmer's Delight. Дирижабли, поезда, заводы. Версия 1.21.1 NeoForge 21.1.248. Закрытое бета-тестирование, доступ по донату. IP: ru.goidacraft.online (СНГ), eu.goidacraft.online (ЕС)." />
         <meta name="keywords" content="гойдакрафт, goidacraft, майнкрафт сервер, minecraft server, create aeronautics сервер, аэронафтика сервер, aeronautics server, minecraft aeronautics server, aeronautics multiplayer, сервер с create, сервер криэйт, create mod server, neoforge server, minecraft 1.21.1 server, goidacraft online" />
         <link rel="canonical" href="https://goidacraft.online/" />
         <link rel="preload" as="image" href="/assets/img/goidalogo.png" />
@@ -30,11 +30,11 @@ export default function HomePage() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://goidacraft.online/" />
         <meta property="og:title" content="Гойдакрафт — Minecraft сервер с Create: Aeronautics" />
-        <meta property="og:description" content="Приватный Minecraft role-play сервер с модами Create, Create: Aeronautics, Steam 'n' Rails и Farmer's Delight. Дирижабли, поезда, заводы на версии 1.21.1 NeoForge." />
+        <meta property="og:description" content="Приватный Minecraft role-play сервер с модами Create, Create: Aeronautics, Railways и Farmer's Delight. Дирижабли, поезда, заводы на версии 1.21.1 NeoForge." />
         <meta property="og:image" content="https://goidacraft.online/assets/img/goidalogo.png" />
         {/* Twitter */}
         <meta name="twitter:title" content="Гойдакрафт — Minecraft сервер с Create: Aeronautics" />
-        <meta name="twitter:description" content="Приватный Minecraft role-play сервер с модами Create, Create: Aeronautics, Steam 'n' Rails и Farmer's Delight. Дирижабли, поезда, заводы." />
+        <meta name="twitter:description" content="Приватный Minecraft role-play сервер с модами Create, Create: Aeronautics, Railways и Farmer's Delight. Дирижабли, поезда, заводы." />
         <meta name="twitter:image" content="https://goidacraft.online/assets/img/goidalogo.png" />
         {/* JSON-LD структурированные данные */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -43,7 +43,7 @@ export default function HomePage() {
           "name": "Гойдакрафт",
           "alternateName": ["GoidaCraft", "Goidacraft", "goidacraft.online"],
           "url": "https://goidacraft.online",
-          "description": "Приватный Minecraft role-play сервер с модами Create, Create: Aeronautics, Steam 'n' Rails и Farmer's Delight на версии 1.21.1 NeoForge.",
+          "description": "Приватный Minecraft role-play сервер с модами Create, Create: Aeronautics, Railways и Farmer's Delight на версии 1.21.1 NeoForge.",
           "inLanguage": "ru",
           "potentialAction": {
             "@type": "SearchAction",
@@ -71,7 +71,7 @@ export default function HomePage() {
           "@type": "VideoGame",
           "name": "Гойдакрафт — Minecraft сервер",
           "url": "https://goidacraft.online",
-          "description": "Приватный Minecraft role-play сервер с модами Create, Create: Aeronautics, Steam 'n' Rails, Farmer's Delight. Версия Minecraft 1.21.1, загрузчик NeoForge 21.1.233. Закрытое бета-тестирование, доступ по донату. Дирижабли, поезда, заводы.",
+          "description": "Приватный Minecraft role-play сервер с модами Create, Create: Aeronautics, Railways, Farmer's Delight. Версия Minecraft 1.21.1, загрузчик NeoForge 21.1.248. Закрытое бета-тестирование, доступ по донату. Дирижабли, поезда, заводы.",
           "gamePlatform": ["PC", "Windows", "macOS", "Linux"],
           "applicationCategory": "Game",
           "operatingSystem": "Windows, macOS, Linux",
@@ -148,19 +148,19 @@ export default function HomePage() {
                 <strong>Create &amp; Create: Aeronautics</strong> — фундамент сборки. Шестерни, конвейеры, паровые механизмы и — главное — <em>летающие дирижабли</em>. Именно <strong>Aeronautics</strong> делает этот сервер уникальным среди <em>minecraft aeronautics server</em> проектов.
               </li>
               <li>
-                <strong>Steam &apos;n&apos; Rails</strong> — развитая железнодорожная сеть: пути, локомотивы, сигналы и станции на базе механики <em>Create</em>.
+                <strong>Railways</strong> — развитая железнодорожная сеть: пути, локомотивы, сигналы и станции на базе механики <em>Create</em>.
               </li>
               <li>
-                <strong>Farmer&apos;s Delight</strong> — полноценный кулинарный цикл: поля, кухня, блюда. Дополнен Ocean&apos;s Delight, Miner&apos;s Delight и другими модулями.
+                <strong>Farmer&apos;s Delight</strong> — полноценный кулинарный цикл: поля, кухня, блюда. Дополнен Fruits Delight, Barbeque&apos;s Delight и другими модулями.
               </li>
               <li>
-                <strong>Let&apos;s Do</strong> — жизненный контент: пекарня, пивоварня, виноделие, мебель, рыбалка, кемпинг и многое другое.
+                <strong>Let&apos;s Do</strong> — жизненный контент: пекарня, пивоварня, виноделие, мебель, гончарное дело и многое другое.
               </li>
               <li>
-                <strong>Terralith + Rechiseled + Joy of Painting</strong> — живой мир с уникальным рельефом, огромным строительным потенциалом и художественными инструментами.
+                <strong>Enderscape + Rechiseled + Naturalist</strong> — живой мир с переработанным Эндом, огромным строительным потенциалом и живностью в биомах.
               </li>
             </ul>
-            <p>Полный список — на <Link href="/mods">странице модов</Link>. Там же скачать сборку <em>GOIDAbase</em> или <em>GOIDAslon</em>.</p>
+            <p>Полный список — на <Link href="/mods">странице модов</Link>. Там же скачать сборку.</p>
           </div>
         </div>
 

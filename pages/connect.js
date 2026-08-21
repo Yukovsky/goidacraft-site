@@ -83,8 +83,9 @@ export default function ConnectPage() {
       const reachable = results.filter(Boolean)
       if (reachable.length === 0) { setStatus('offline'); setPlayers('Данные не загрузились'); return }
       const anyOnline = reachable.some(d => d.online)
-      const online = reachable.reduce((s, d) => s + (d.online ? (d.players?.online ?? 0) : 0), 0)
-      const max = reachable.reduce((s, d) => s + (d.online ? (d.players?.max ?? 0) : 0), 0)
+      // ru. и eu. — два входа в один и тот же сервер (общий пул игроков), поэтому берём максимум, а не сумму
+      const online = reachable.reduce((s, d) => Math.max(s, d.online ? (d.players?.online ?? 0) : 0), 0)
+      const max = reachable.reduce((s, d) => Math.max(s, d.online ? (d.players?.max ?? 0) : 0), 0)
       setStatus(anyOnline ? 'online' : 'offline')
       setPlayers(anyOnline ? `${online}/${max} онлайн` : 'Сервер офлайн')
     }
@@ -106,25 +107,25 @@ export default function ConnectPage() {
       <Head>
         <title>Подключение к серверу Гойдакрафт — IP и доступ</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Как попасть на сервер Гойдакрафт: закрытое бета-тестирование, доступ по донату на Boosty. Два IP — ru.goidacraft.online (СНГ) и eu.goidacraft.online (ЕС). Minecraft 1.21.1, NeoForge 21.1.233." />
+        <meta name="description" content="Как попасть на сервер Гойдакрафт: закрытое бета-тестирование, доступ по донату на Boosty. Два IP — ru.goidacraft.online (СНГ) и eu.goidacraft.online (ЕС). Minecraft 1.21.1, NeoForge 21.1.248." />
         <meta name="keywords" content="как зайти на гойдакрафт, goidacraft ip, ru.goidacraft.online, eu.goidacraft.online, доступ гойдакрафт, гойдакрафт бусти, boosty goidacraft, закрытое тестирование, подключение к серверу, minecraft сервер ip, neoforge 1.21.1 сервер" />
         <link rel="canonical" href="https://goidacraft.online/connect/" />
         {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://goidacraft.online/connect/" />
         <meta property="og:title" content="Как попасть на сервер Гойдакрафт — IP и доступ" />
-        <meta property="og:description" content="Закрытое бета-тестирование, доступ по донату на Boosty. Два IP: ru.goidacraft.online (СНГ) и eu.goidacraft.online (ЕС). Minecraft 1.21.1 NeoForge 21.1.233." />
+        <meta property="og:description" content="Закрытое бета-тестирование, доступ по донату на Boosty. Два IP: ru.goidacraft.online (СНГ) и eu.goidacraft.online (ЕС). Minecraft 1.21.1 NeoForge 21.1.248." />
         <meta property="og:image" content="https://goidacraft.online/assets/img/goidalogo.png" />
         {/* Twitter */}
         <meta name="twitter:title" content="Как попасть на сервер Гойдакрафт — IP и доступ" />
-        <meta name="twitter:description" content="Закрытое бета-тестирование, доступ по донату на Boosty. Два IP: ru. и eu.goidacraft.online. Minecraft 1.21.1 NeoForge 21.1.233." />
+        <meta name="twitter:description" content="Закрытое бета-тестирование, доступ по донату на Boosty. Два IP: ru. и eu.goidacraft.online. Minecraft 1.21.1 NeoForge 21.1.248." />
         <meta name="twitter:image" content="https://goidacraft.online/assets/img/goidalogo.png" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebPage",
           "name": "Подключение к серверу Гойдакрафт",
           "url": "https://goidacraft.online/connect/",
-          "description": "Как попасть на сервер Гойдакрафт: закрытое бета-тестирование, доступ по донату на Boosty. IP: ru.goidacraft.online (СНГ) и eu.goidacraft.online (ЕС). Minecraft 1.21.1 NeoForge 21.1.233.",
+          "description": "Как попасть на сервер Гойдакрафт: закрытое бета-тестирование, доступ по донату на Boosty. IP: ru.goidacraft.online (СНГ) и eu.goidacraft.online (ЕС). Minecraft 1.21.1 NeoForge 21.1.248.",
           "isPartOf": { "@type": "WebSite", "name": "Гойдакрафт", "url": "https://goidacraft.online" }
         }) }} />
       </Head>
@@ -172,7 +173,7 @@ export default function ConnectPage() {
 
           <dl className="server-meta">
             <div><dt>Статус</dt><dd>ЗБТ</dd></div>
-            <div><dt>Платформа</dt><dd>NeoForge 21.1.233</dd></div>
+            <div><dt>Платформа</dt><dd>NeoForge 21.1.248</dd></div>
             <div><dt>Версия игры</dt><dd>Minecraft 1.21.1</dd></div>
             <div><dt>Доступ</dt><dd>Boosty / по приглашению</dd></div>
           </dl>
@@ -278,7 +279,7 @@ export default function ConnectPage() {
             <div className="step">
               <div className="num">02</div>
               <h3>Установите NeoForge</h3>
-              <p>Нужна версия Minecraft <code>1.21.1</code>. Лоадер — NeoForge билд <code>21.1.233</code>.</p>
+              <p>Нужна версия Minecraft <code>1.21.1</code>. Лоадер — NeoForge билд <code>21.1.248</code>.</p>
             </div>
             <div className="step">
               <div className="num">03</div>
