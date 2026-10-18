@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
+// Подписчики Boosty-тарифа "Мастер Гойды" (567 ₽/мес) — длительность в месяцах.
+// Файл обновляет мод GoidaBoosty по ленте платежей Boosty; руками не править.
+import MASTERS_RAW from '../data/masters.json'
 
 // Цена месяца подписки "Мастер Гойды" на Boosty — правь только здесь
 const BOOSTY_MONTH_PRICE = 567
@@ -24,18 +27,6 @@ const DONORS_RAW = [
   { nickname: 'feekse',           amount: 200    },
   { nickname: 'Gr1imm',           amount: 136.3  },
   { nickname: 'kRe3k0_Solos',     amount: 629    },
-]
-
-// Подписчики Boosty-тарифа "Мастер Гойды" (567 ₽/мес) — длительность в месяцах
-const MASTERS_RAW = [
-  { nickname: 'TonaPoTa69', months: 2 },
-  { nickname: 'NPZ_D3ZTR0Y3R', months: 2 },
-  { nickname: 'IcNewPlayer', months: 1 },
-  { nickname: 'FalenLacer', months: 1 },
-  { nickname: 'Lix0y', months: 1 },
-  { nickname: '228seva33', months: 1 },
-  { nickname: 'Dagestania91', months: 1 },
-  { nickname: 'Sir_CarBone_Jr', months: 1 },
 ]
 
 const DONORS = [...DONORS_RAW]
